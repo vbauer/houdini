@@ -16,9 +16,8 @@ Houdini allows you to aggregate different converters in the single place and re-
 ## Main features
 
 * Ready-To-Use solution
-* Compact and clean converters
-* Completely re-usable components
 * Compact and very simple API
+* Completely re-usable components
 * Direct usage of converters if necessary
 * Preventing unnecessary code
 
@@ -89,7 +88,8 @@ You still need to configure the same 2 beans:
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="
-        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd">
 
     <!-- Converter service bean -->
     <bean class="com.github.vbauer.houdini.service.ObjectConverterServiceImpl" />
@@ -138,6 +138,12 @@ final User user = new User()
 
 final UserDTO userDTO = converterService.convert(UserDTO.class, user);
 ```
+
+
+## Might also like
+
+* [commons-vfs2-cifs](https://github.com/vbauer/commons-vfs2-cifs) - SMB/CIFS provider for Commons VFS.
+* [avconv4java](https://github.com/vbauer/avconv4java) - Java interface to avconv tool.
 
 
 ## License
