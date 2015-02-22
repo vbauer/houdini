@@ -19,11 +19,22 @@ public final class HoudiniUtils {
     }
     
     public static Object oneOrMany(@SuppressWarnings("rawtypes") final Collection collection) {
-        return size(collection) == 1 ? collection.iterator().next() : collection;
+        switch (size(collection)) {
+            case 0:
+                return null;
+            case 1:
+                return collection.iterator().next();
+            default:
+                return collection;
+        }
     }
 
     @SuppressWarnings("unchecked")
     public static <T> Class<T> getClassWithoutProxies(final Object object) {
+        if (object == null) {
+            return null;
+        }
+        
         try {
             final Class<?> clazz = Class.forName("org.hibernate.proxy.HibernateProxyHelper");
             final Method method = clazz.getDeclaredMethod("getClassWithoutInitializingProxy");
