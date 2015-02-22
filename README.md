@@ -1,5 +1,5 @@
 
-# Houdini [![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg?branch=master)](https://coveralls.io/r/vbauer/houdini?branch=master) [![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg)](https://coveralls.io/r/vbauer/houdini)
+# Houdini [![Build Status](https://travis-ci.org/vbauer/houdini.svg)](https://travis-ci.org/vbauer/houdini) [![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg?branch=master)](https://coveralls.io/r/vbauer/houdini?branch=master)
 
 > No performer should attempt to bite off red-hot iron unless he has a good set of teeth.
 
@@ -109,7 +109,7 @@ It is possible to add this annotation on:
 * **Bean class** - all public methods from this class will be registered as converters.
 * **Bean's public method** - only this method will be registered as converter.
 
-All necessary converters will be registered in ObjectConverterService.
+All necessary converters will be registered in bean `ObjectConverterService`.
 This service also provides all necessary methods for data conversion:
 
 ```java
