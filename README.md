@@ -1,5 +1,5 @@
 
-# Houdini [![Build Status](https://travis-ci.org/vbauer/houdini.svg)](https://travis-ci.org/vbauer/houdini)
+# Houdini [![Build Status](https://travis-ci.org/vbauer/houdini.svg)](https://travis-ci.org/vbauer/houdini) [![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg)](https://coveralls.io/r/vbauer/houdini)
 
 > No performer should attempt to bite off red-hot iron unless he has a good set of teeth.
 
