@@ -58,10 +58,15 @@ public class HoudiniUtilsTest extends BasicTest {
 
     @Test
     public void testConstructorContract() throws Exception {
+        checkUtilConstructorContract(HoudiniUtils.class);
+    }
+
+
+    private void checkUtilConstructorContract(final Class<HoudiniUtils> utilClass) throws Exception {
         try {
-            Assert.fail(HoudiniUtils.class.newInstance().toString());
+            Assert.fail(utilClass.newInstance().toString());
         } catch (final IllegalAccessException ex) {
-            final Constructor<HoudiniUtils> constructor = HoudiniUtils.class.getDeclaredConstructor();
+            final Constructor<HoudiniUtils> constructor = utilClass.getDeclaredConstructor();
             constructor.setAccessible(true);
 
             try {
