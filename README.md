@@ -1,5 +1,5 @@
 
-# Houdini
+# Houdini [![Build Status](https://travis-ci.org/vbauer/houdini.svg)](https://travis-ci.org/vbauer/houdini)
 
 TODO: Fill readme
 
