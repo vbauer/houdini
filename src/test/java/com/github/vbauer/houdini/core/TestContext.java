@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@ComponentScan(basePackages = "com.github.vbauer")
+@ComponentScan(basePackages = "com.github.vbauer.houdini")
 public class TestContext {
 
     @Bean
