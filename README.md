@@ -1,8 +1,44 @@
 
 # Houdini [![Build Status](https://travis-ci.org/vbauer/houdini.svg)](https://travis-ci.org/vbauer/houdini)
 
-TODO: Fill readme
+> No performer should attempt to bite off red-hot iron unless he has a good set of teeth.
 
+<img align="right" style="margin-left: 15px" width="300" height="315" src="misc/houdini.png">
+
+**Houdini** is a simple and humane type conversion system for Spring.
+
+*Project was named in honor of Harry Houdini (born Erik Weisz, later Ehrich Weiss or Harry Weiss) who was a Hungarian-American illusionist and stunt performer, noted for his sensational escape acts.*
+
+
+
+## Setup
+
+Maven:
+```xml
+<repository>
+    <id>jitpack.io</id>
+    <url>https://jitpack.io</url>
+</repository>
+
+<dependency>
+    <groupId>com.github.vbauer</groupId>
+    <artifactId>houdini</artifactId>
+    <version>1.0.0</version>
+</dependency>
+```
+
+Gradle:
+```groovy
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+
+dependencies {
+    compile 'com.github.vbauer:houdini:1.0.0'
+}
+```
 
 ## License
 
