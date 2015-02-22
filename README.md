@@ -12,6 +12,8 @@ Houdini allows you to aggregate different converters in the single place and re-
 
 *Project was named in honor of Harry Houdini (born Erik Weisz, later Ehrich Weiss or Harry Weiss) who was a Hungarian-American illusionist and stunt performer, noted for his sensational escape acts.*
 
+See an *Example* section for a quick start.
+
 
 ## Main features
 
@@ -112,23 +114,10 @@ It is possible to add this annotation on:
 All necessary converters will be registered in bean `ObjectConverterService`.
 This service also provides all necessary methods for data conversion:
 
-```java
-public interface ObjectConverterService {
-
-    void registerConverterMethod(Object bean, Method method);
-
-    <RESULT> RESULT convert(Class<RESULT> resultClass, Object... sources);
-
-    <RESULT, SOURCE> Set<RESULT> convert(Class<RESULT> resultClass, Set<SOURCE> sources);
-
-    <RESULT, SOURCE> List<RESULT> convert(Class<RESULT> resultClass, List<SOURCE> sources);
-
-    <RESULT, SOURCE> Object convertToOneOrList(Class<RESULT> resultClass, List<SOURCE> sources);
-
-    <RESULT, SOURCE> Object convertToOneOrSet(Class<RESULT> resultClass, Set<SOURCE> sources);
-
-}
-```
+* Register converter methods.
+* Convert some data object (with parameters) to another data object.
+* Convert `Set` or `List` of data to `Set`/`List` of data.
+* Convert `Set`/`List` of data to one element or `Set`/`List` (it could be useful for some REST API services).
 
 That's all!
 
