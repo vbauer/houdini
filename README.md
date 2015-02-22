@@ -168,7 +168,9 @@ final User user = new User()
     .setLogin(LOGIN)
     .setPassword(PASSWORD)
 
-final UserDTO userDTO = converterService.convert(UserDTO.class, user);
+final UserDTO shortUserDTO1 = converterService.convert(UserDTO.class, user);
+final UserDTO shortUserDTO2 = converterService.convert(UserDTO.class, user, false);
+final UserDTO fullUserDTO = converterService.convert(UserDTO.class, user, true);
 ```
 
 
