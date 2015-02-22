@@ -16,9 +16,9 @@ public final class ObjectConverterInfoKey<RESULT> {
     private final Class<RESULT> target;
 
 
-    public ObjectConverterInfoKey(final Class<?>[] sources, final Class<RESULT> target) {
-        this.sources = sources;
+    public ObjectConverterInfoKey(final Class<RESULT> target, final Class<?>... sources) {
         this.target = target;
+        this.sources = sources;
     }
 
 

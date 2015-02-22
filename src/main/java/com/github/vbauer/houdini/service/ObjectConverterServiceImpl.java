@@ -7,7 +7,6 @@ import com.github.vbauer.houdini.model.ObjectConverterInfoValue;
 import com.github.vbauer.houdini.util.HoudiniUtils;
 import org.springframework.util.CollectionUtils;
 
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -30,7 +29,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
         final Class<?>[] parameterTypes = method.getParameterTypes();
 
         final ObjectConverterInfoValue<?> result = registeredConverters.putIfAbsent(
-            new ObjectConverterInfoKey(parameterTypes, returnType),
+            new ObjectConverterInfoKey(returnType, parameterTypes),
             new ObjectConverterInfoValue<Object>(method, bean)
         );
 
@@ -83,7 +82,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
         final Class<RESULT> resultClass, final Object... sources
     ) {
         final Class<?>[] sourceClasses = HoudiniUtils.getClassesWithoutProxies(sources);
-        final ObjectConverterInfoKey<RESULT> key = new ObjectConverterInfoKey<RESULT>(sourceClasses, resultClass);
+        final ObjectConverterInfoKey<RESULT> key = new ObjectConverterInfoKey<RESULT>(resultClass, sourceClasses);
         final ObjectConverterInfoValue<RESULT> value = (ObjectConverterInfoValue<RESULT>) registeredConverters.get(key);
         
         if (value == null) {
@@ -112,9 +111,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
         final Object object = converterInfo.getObject();
         try {
             return (RESULT) method.invoke(object, sources);
-        } catch (final IllegalAccessException ex) {
-            throw new RuntimeException(ex);
-        } catch (final InvocationTargetException ex) {
+        } catch (final Exception ex) {
             throw new RuntimeException(ex);
         }
     }
