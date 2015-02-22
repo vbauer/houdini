@@ -7,13 +7,13 @@ import java.lang.reflect.Method;
  * @author Vladislav Bauer
  */
 
-public final class ConverterInfoValue<T> {
+public final class ObjectConverterInfoValue<T> {
 
     private final Method method;
     private final T object;
 
 
-    public ConverterInfoValue(final Method method, final T object) {
+    public ObjectConverterInfoValue(final Method method, final T object) {
         this.method = method;
         this.object = object;
     }

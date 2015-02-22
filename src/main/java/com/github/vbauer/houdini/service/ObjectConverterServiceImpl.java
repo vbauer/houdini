@@ -1,7 +1,7 @@
-package com.github.vbauer.houdini;
+package com.github.vbauer.houdini.service;
 
-import com.github.vbauer.houdini.model.ConverterInfoKey;
-import com.github.vbauer.houdini.model.ConverterInfoValue;
+import com.github.vbauer.houdini.model.ObjectConverterInfoKey;
+import com.github.vbauer.houdini.model.ObjectConverterInfoValue;
 import com.github.vbauer.houdini.util.HoudiniUtils;
 import org.springframework.util.CollectionUtils;
 
@@ -15,32 +15,32 @@ import java.util.concurrent.ConcurrentMap;
  * @author Vladislav Bauer 
  */
 
-public class ConverterServiceImpl implements ConverterService {
+public class ObjectConverterServiceImpl implements ObjectConverterService {
 
-    private final ConcurrentMap<ConverterInfoKey<?>, ConverterInfoValue<?>> registeredConverters =
-        new ConcurrentHashMap<ConverterInfoKey<?>, ConverterInfoValue<?>>();
-
+    private final ConcurrentMap<ObjectConverterInfoKey<?>, ObjectConverterInfoValue<?>> registeredConverters =
+        new ConcurrentHashMap<ObjectConverterInfoKey<?>, ObjectConverterInfoValue<?>>();
 
     @Override
-    public <RESULT> void registerConverter(
-        final Class<RESULT> resultClass, final List<Class<?>> sourceClasses,
-        final Method method, final Object object
-    ) {
-        final ConverterInfoValue<?> result = registeredConverters.putIfAbsent(
-            new ConverterInfoKey<RESULT>(sourceClasses, resultClass),
-            new ConverterInfoValue<Object>(method, object)
+    @SuppressWarnings("unchecked")
+    public void registerConverterMethod(final Object bean, final Method method) {
+        final Class<?> returnType = method.getReturnType();
+        final Class<?>[] parameterTypes = method.getParameterTypes();
+
+        final ObjectConverterInfoValue<?> result = registeredConverters.putIfAbsent(
+            new ObjectConverterInfoKey(parameterTypes, returnType),
+            new ObjectConverterInfoValue<Object>(method, bean)
         );
 
         if (result != null) {
             throw new IllegalStateException(String.format(
-                "Can't register two converters with the target class %s", resultClass.getSimpleName()
+                "Can't register two converters with the target class %s", returnType.getSimpleName()
             ));
         }
     }
 
     @Override
     public <RESULT> RESULT convert(final Class<RESULT> resultClass, final Object... sources) {
-        final ConverterInfoValue<RESULT> converterInfo = findConverterInfo(resultClass, sources);
+        final ObjectConverterInfoValue<RESULT> converterInfo = findConverterInfo(resultClass, sources);
         return processObject(converterInfo, sources);
     }
 
@@ -81,17 +81,17 @@ public class ConverterServiceImpl implements ConverterService {
     }
 
 
+    /*
+     * Internal API.
+     */
+
     @SuppressWarnings("unchecked")
-    private <RESULT> ConverterInfoValue<RESULT> findConverterInfo(
+    private <RESULT> ObjectConverterInfoValue<RESULT> findConverterInfo(
         final Class<RESULT> resultClass, final Object... sources
     ) {
-        final List<Class<?>> sourceClasses = new ArrayList<Class<?>>();
-        for (final Object source : sources) {
-            sourceClasses.add(HoudiniUtils.getClassWithoutProxies(source));
-        }
-
-        final ConverterInfoKey<RESULT> key = new ConverterInfoKey<RESULT>(sourceClasses, resultClass);
-        final ConverterInfoValue<RESULT> value = (ConverterInfoValue<RESULT>) registeredConverters.get(key);
+        final Class<?>[] sourceClasses = HoudiniUtils.getClassesWithoutProxies(sources);
+        final ObjectConverterInfoKey<RESULT> key = new ObjectConverterInfoKey<RESULT>(sourceClasses, resultClass);
+        final ObjectConverterInfoValue<RESULT> value = (ObjectConverterInfoValue<RESULT>) registeredConverters.get(key);
         
         if (value == null) {
             throw new IllegalArgumentException(String.format("Can't find needed object converter (key: %s)", key));
@@ -106,7 +106,7 @@ public class ConverterServiceImpl implements ConverterService {
     ) {
         if (!CollectionUtils.isEmpty(sources)) {
             for (final Object source : sources) {
-                final ConverterInfoValue<RESULT> converterInfo = findConverterInfo(resultClass, source);
+                final ObjectConverterInfoValue<RESULT> converterInfo = findConverterInfo(resultClass, source);
                 result.add(processObject(converterInfo, source));
             }
         }
@@ -114,7 +114,7 @@ public class ConverterServiceImpl implements ConverterService {
 
     @SuppressWarnings("unchecked")
     private <RESULT> RESULT processObject(
-        final ConverterInfoValue<RESULT> converterInfo, final Object... sources
+        final ObjectConverterInfoValue<RESULT> converterInfo, final Object... sources
     ) {
         final Method method = converterInfo.getMethod();
         final Object object = converterInfo.getObject();
@@ -126,5 +126,5 @@ public class ConverterServiceImpl implements ConverterService {
             throw new RuntimeException(ex);
         }
     }
-    
+
 }

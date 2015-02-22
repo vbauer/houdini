@@ -17,7 +17,11 @@ public final class HoudiniUtils {
     public static int size(final Collection collection) {
         return collection == null ? 0 : collection.size();
     }
-    
+
+    public static <T> int size(final T[] array) {
+        return array == null ? 0 : array.length;
+    }
+
     public static Object oneOrMany(@SuppressWarnings("rawtypes") final Collection collection) {
         switch (size(collection)) {
             case 0:
@@ -42,6 +46,18 @@ public final class HoudiniUtils {
         } catch (final Exception ex) {
             return (Class<T>) object.getClass();
         }
+    }
+
+    public static Class<?>[] getClassesWithoutProxies(final Object[] sources) {
+        final int size = sources.length;
+        final Class<?>[] sourceClasses = new Class<?>[size];
+
+        for (int i = 0; i < size; i++) {
+            final Object source = sources[i];
+            sourceClasses[i] = HoudiniUtils.getClassWithoutProxies(source);
+        }
+
+        return sourceClasses;
     }
 
 }

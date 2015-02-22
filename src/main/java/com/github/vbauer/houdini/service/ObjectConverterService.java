@@ -1,4 +1,4 @@
-package com.github.vbauer.houdini;
+package com.github.vbauer.houdini.service;
 
 import java.lang.reflect.Method;
 import java.util.List;
@@ -8,12 +8,9 @@ import java.util.Set;
  * @author Vladislav Bauer
  */
 
-public interface ConverterService {
+public interface ObjectConverterService {
 
-    <RESULT> void registerConverter(
-            Class<RESULT> resultClass, List<Class<?>> sourceClasses,
-            Method method, Object object
-    );
+    void registerConverterMethod(Object bean, Method method);
 
     <RESULT> RESULT convert(Class<RESULT> resultClass, Object... sources);
 
