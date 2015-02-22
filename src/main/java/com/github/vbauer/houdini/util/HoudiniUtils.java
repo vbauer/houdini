@@ -40,8 +40,10 @@ public final class HoudiniUtils {
         }
         
         try {
+            // XXX: Use HibernateProxyHelper to un-proxy object and get the original class.
             final Class<?> clazz = Class.forName("org.hibernate.proxy.HibernateProxyHelper");
-            final Method method = clazz.getDeclaredMethod("getClassWithoutInitializingProxy");
+            final Method method = clazz.getDeclaredMethod("getClassWithoutInitializingProxy", Object.class);
+
             return (Class<T>) method.invoke(null, object);
         } catch (final Exception ex) {
             return (Class<T>) object.getClass();

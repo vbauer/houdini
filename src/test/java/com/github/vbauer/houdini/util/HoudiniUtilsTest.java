@@ -1,18 +1,18 @@
 package com.github.vbauer.houdini.util;
 
+import com.github.vbauer.houdini.core.BasicTest;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.BlockJUnit4ClassRunner;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 
 /**
  * @author Vladislav Bauer 
  */
 
-@RunWith(BlockJUnit4ClassRunner.class)
-public class HoudiniUtilsTest {
+public class HoudiniUtilsTest extends BasicTest {
 
     @Test
     public void testSizeArray() {
@@ -54,6 +54,23 @@ public class HoudiniUtilsTest {
     public void testGetClassesWithoutProxies() {
         Assert.assertEquals(0, HoudiniUtils.getClassesWithoutProxies(null).length);
         Assert.assertEquals(0, HoudiniUtils.getClassesWithoutProxies(new Object[] {}).length);
+    }
+
+    @Test
+    public void testConstructorContract() throws Exception {
+        try {
+            Assert.fail(HoudiniUtils.class.newInstance().toString());
+        } catch (final IllegalAccessException ex) {
+            final Constructor<HoudiniUtils> constructor = HoudiniUtils.class.getDeclaredConstructor();
+            constructor.setAccessible(true);
+
+            try {
+                Assert.fail(constructor.newInstance().toString());
+            } catch (final InvocationTargetException e) {
+                final Throwable targetException = e.getTargetException();
+                Assert.assertEquals(UnsupportedOperationException.class, targetException.getClass());
+            }
+        }
     }
 
 }

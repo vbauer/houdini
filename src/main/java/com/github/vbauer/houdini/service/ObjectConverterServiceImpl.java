@@ -1,5 +1,7 @@
 package com.github.vbauer.houdini.service;
 
+import com.github.vbauer.houdini.exception.DuplicatedObjectConverterException;
+import com.github.vbauer.houdini.exception.MissedObjectConverterException;
 import com.github.vbauer.houdini.model.ObjectConverterInfoKey;
 import com.github.vbauer.houdini.model.ObjectConverterInfoValue;
 import com.github.vbauer.houdini.util.HoudiniUtils;
@@ -33,9 +35,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
         );
 
         if (result != null) {
-            throw new IllegalStateException(String.format(
-                "Can't register two converters with the target class %s", returnType.getSimpleName()
-            ));
+            throw new DuplicatedObjectConverterException(returnType, parameterTypes);
         }
     }
 
@@ -87,7 +87,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
         final ObjectConverterInfoValue<RESULT> value = (ObjectConverterInfoValue<RESULT>) registeredConverters.get(key);
         
         if (value == null) {
-            throw new IllegalArgumentException(String.format("Can't find needed object converter (key: %s)", key));
+            throw new MissedObjectConverterException(resultClass, sourceClasses);
         }
         
         return value;

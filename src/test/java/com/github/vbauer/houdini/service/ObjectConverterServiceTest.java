@@ -1,11 +1,16 @@
 package com.github.vbauer.houdini.service;
 
-import com.github.vbauer.houdini.core.BasicTest;
+import com.github.vbauer.houdini.converter.UserConverter;
+import com.github.vbauer.houdini.core.BasicSprinTest;
+import com.github.vbauer.houdini.exception.DuplicatedObjectConverterException;
+import com.github.vbauer.houdini.exception.MissedObjectConverterException;
 import com.github.vbauer.houdini.model.User;
 import com.github.vbauer.houdini.model.UserDTO;
 import org.junit.Assert;
 import org.junit.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 
+import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -14,11 +19,16 @@ import java.util.Set;
  * @author Vladislav Bauer
  */
 
-public class ObjectConverterServiceTest extends BasicTest {
+@SuppressWarnings("SpringJavaAutowiringInspection")
+public class ObjectConverterServiceTest extends BasicSprinTest {
 
     private static final int ID = 1;
     private static final String LOGIN = "vbauer";
     private static final String PASSWORD = "password";
+
+
+    @Autowired
+    private UserConverter userConverter;
 
 
     @Test
@@ -67,6 +77,17 @@ public class ObjectConverterServiceTest extends BasicTest {
         final List<User> users = Collections.singletonList(createUser());
         final UserDTO userDTO = (UserDTO) converterService.convertToOneOrList(UserDTO.class, users);
         checkUserDTO(userDTO, false);
+    }
+
+    @Test(expected = MissedObjectConverterException.class)
+    public void testMissedConverter() {
+        converterService.convert(Object.class, (Object) null);
+    }
+
+    @Test(expected = DuplicatedObjectConverterException.class)
+    public void testDuplicatedConverter() throws Exception {
+        final Method converter = userConverter.getClass().getDeclaredMethod("shortInfo", User.class);
+        converterService.registerConverterMethod(userConverter, converter);
     }
 
 
