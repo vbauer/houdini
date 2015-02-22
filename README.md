@@ -166,6 +166,7 @@ final UserDTO fullUserDTO = converterService.convert(UserDTO.class, user, true);
 
 ## Might also like
 
+* [Herald](https://github.com/vbauer/herald) - Logging annotation for Spring framework.
 * [commons-vfs2-cifs](https://github.com/vbauer/commons-vfs2-cifs) - SMB/CIFS provider for Commons VFS.
 * [avconv4java](https://github.com/vbauer/avconv4java) - Java interface to avconv tool.
 
