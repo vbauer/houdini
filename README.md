@@ -1,5 +1,5 @@
 
-# Houdini [![Build Status](https://travis-ci.org/vbauer/houdini.svg)](https://travis-ci.org/vbauer/houdini) [![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg)](https://coveralls.io/r/vbauer/houdini)
+# Houdini [![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg?branch=master)](https://coveralls.io/r/vbauer/houdini?branch=master) [![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg)](https://coveralls.io/r/vbauer/houdini)
 
 > No performer should attempt to bite off red-hot iron unless he has a good set of teeth.
 
@@ -99,6 +99,38 @@ You still need to configure the same 2 beans:
 
 </beans>
 ```
+
+
+## Conversation API
+
+To create new converter, you need to create a new Spring bean (or use an existed one) and mark this bean as converter using `@ObjectConverter` annotation.
+
+It is possible to add this annotation on:
+* **Bean class** - all public methods from this class will be registered as converters.
+* **Bean's public method** - only this method will be registered as converter.
+
+All necessary converters will be registered in ObjectConverterService.
+This service also provides all necessary methods for data conversion:
+
+```java
+public interface ObjectConverterService {
+
+    void registerConverterMethod(Object bean, Method method);
+
+    <RESULT> RESULT convert(Class<RESULT> resultClass, Object... sources);
+
+    <RESULT, SOURCE> Set<RESULT> convert(Class<RESULT> resultClass, Set<SOURCE> sources);
+
+    <RESULT, SOURCE> List<RESULT> convert(Class<RESULT> resultClass, List<SOURCE> sources);
+
+    <RESULT, SOURCE> Object convertToOneOrList(Class<RESULT> resultClass, List<SOURCE> sources);
+
+    <RESULT, SOURCE> Object convertToOneOrSet(Class<RESULT> resultClass, Set<SOURCE> sources);
+
+}
+```
+
+That's all!
 
 
 ## Example
