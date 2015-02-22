@@ -49,7 +49,7 @@ public final class HoudiniUtils {
     }
 
     public static Class<?>[] getClassesWithoutProxies(final Object[] sources) {
-        final int size = sources.length;
+        final int size = sources == null ? 0 : sources.length;
         final Class<?>[] sourceClasses = new Class<?>[size];
 
         for (int i = 0; i < size; i++) {

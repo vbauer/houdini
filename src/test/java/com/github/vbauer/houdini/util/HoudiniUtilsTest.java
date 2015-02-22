@@ -13,10 +13,17 @@ import java.util.*;
 
 @RunWith(BlockJUnit4ClassRunner.class)
 public class HoudiniUtilsTest {
-    
+
     @Test
-    public void testSize() {
-        Assert.assertEquals(0, HoudiniUtils.size(null));
+    public void testSizeArray() {
+        Assert.assertEquals(0, HoudiniUtils.size((Integer []) null));
+        Assert.assertEquals(0, HoudiniUtils.size(new Integer [] {}));
+        Assert.assertEquals(1, HoudiniUtils.size(new Integer[] { 1 }));
+    }
+
+    @Test
+    public void testSizeCollection() {
+        Assert.assertEquals(0, HoudiniUtils.size((Collection) null));
         Assert.assertEquals(0, HoudiniUtils.size(Collections.emptyList()));
         Assert.assertEquals(0, HoudiniUtils.size(Collections.emptySet()));
         Assert.assertEquals(1, HoudiniUtils.size(Collections.singleton(1)));
@@ -42,5 +49,11 @@ public class HoudiniUtilsTest {
         Assert.assertEquals(Object.class, HoudiniUtils.getClassWithoutProxies(new Object()));
         Assert.assertEquals(String.class, HoudiniUtils.<String>getClassWithoutProxies("test"));
     }
-    
+
+    @Test
+    public void testGetClassesWithoutProxies() {
+        Assert.assertEquals(0, HoudiniUtils.getClassesWithoutProxies(null).length);
+        Assert.assertEquals(0, HoudiniUtils.getClassesWithoutProxies(new Object[] {}).length);
+    }
+
 }
