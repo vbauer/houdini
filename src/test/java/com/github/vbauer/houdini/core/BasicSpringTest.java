@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 @SuppressWarnings("SpringJavaAutowiringInspection")
 @ContextConfiguration(classes = TestContext.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public abstract class BasicSprinTest {
+public abstract class BasicSpringTest {
 
     @Autowired
     protected ObjectConverterService converterService;

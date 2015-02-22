@@ -1,7 +1,7 @@
 package com.github.vbauer.houdini.service;
 
 import com.github.vbauer.houdini.converter.UserConverter;
-import com.github.vbauer.houdini.core.BasicSprinTest;
+import com.github.vbauer.houdini.core.BasicSpringTest;
 import com.github.vbauer.houdini.exception.DuplicatedObjectConverterException;
 import com.github.vbauer.houdini.exception.MissedObjectConverterException;
 import com.github.vbauer.houdini.model.User;
@@ -20,7 +20,7 @@ import java.util.Set;
  */
 
 @SuppressWarnings("SpringJavaAutowiringInspection")
-public class ObjectConverterServiceTest extends BasicSprinTest {
+public class ObjectConverterServiceTest extends BasicSpringTest {
 
     private static final int ID = 1;
     private static final String LOGIN = "vbauer";
