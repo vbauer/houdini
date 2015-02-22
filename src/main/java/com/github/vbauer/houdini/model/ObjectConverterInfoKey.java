@@ -43,7 +43,7 @@ public final class ObjectConverterInfoKey<RESULT> {
         }
 
         final ObjectConverterInfoKey<RESULT> other = (ObjectConverterInfoKey<RESULT>) obj;
-        if (getTarget() == other.getTarget()) {
+        if (getTarget() != other.getTarget()) {
             return false;
         }
 

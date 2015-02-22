@@ -20,6 +20,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
     private final ConcurrentMap<ObjectConverterInfoKey<?>, ObjectConverterInfoValue<?>> registeredConverters =
         new ConcurrentHashMap<ObjectConverterInfoKey<?>, ObjectConverterInfoValue<?>>();
 
+
     @Override
     @SuppressWarnings("unchecked")
     public void registerConverterMethod(final Object bean, final Method method) {
@@ -45,36 +46,28 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
     }
 
     @Override
-    public <RESULT, SOURCE> Set<RESULT> convert(
-        final Class<RESULT> resultClass, final Set<SOURCE> sources
-    ) {
+    public <RESULT, SOURCE> Set<RESULT> convert(final Class<RESULT> resultClass, final Set<SOURCE> sources) {
         final Set<RESULT> result = new HashSet<RESULT>();
         processObjects(sources, resultClass, result);
         return result;
     }
 
     @Override
-    public <RESULT, SOURCE> List<RESULT> convert(
-        final Class<RESULT> resultClass, final List<SOURCE> sources
-    ) {
+    public <RESULT, SOURCE> List<RESULT> convert(final Class<RESULT> resultClass, final List<SOURCE> sources) {
         final List<RESULT> result = new ArrayList<RESULT>();
         processObjects(sources, resultClass, result);
         return result;
     }
 
     @Override
-    public <RESULT, SOURCE> Object convertToOneOrList(
-        final Class<RESULT> resultClass, final List<SOURCE> sources
-    ) {
+    public <RESULT, SOURCE> Object convertToOneOrList(final Class<RESULT> resultClass, final List<SOURCE> sources) {
         final List<RESULT> result = new ArrayList<RESULT>();
         processObjects(sources, resultClass, result);
         return HoudiniUtils.oneOrMany(result);
     }
 
     @Override
-    public <RESULT, SOURCE> Object convertToOneOrSet(
-        final Class<RESULT> resultClass, final Set<SOURCE> sources
-    ) {
+    public <RESULT, SOURCE> Object convertToOneOrSet(final Class<RESULT> resultClass, final Set<SOURCE> sources) {
         final Set<RESULT> result = new HashSet<RESULT>();
         processObjects(sources, resultClass, result);
         return HoudiniUtils.oneOrMany(result);
@@ -101,8 +94,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
     }
 
     private <RESULT> void processObjects(
-        final Collection<?> sources, final Class<RESULT> resultClass,
-        final Collection<RESULT> result
+        final Collection<?> sources, final Class<RESULT> resultClass, final Collection<RESULT> result
     ) {
         if (!CollectionUtils.isEmpty(sources)) {
             for (final Object source : sources) {
