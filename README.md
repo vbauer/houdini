@@ -52,6 +52,55 @@ dependencies {
 }
 ```
 
+
+## Configuration
+
+### Java based configuration
+
+You need to configure 2 beans:
+* `ObjectConverterService` which you will use to convert objects
+* and `ObjectConverterBeanPostProcessor` which is necessary to detect converters in the Spring context
+
+```java
+@Configuration
+public class AppContext {
+
+    @Bean
+    public ObjectConverterService objectConverterService() {
+        return new ObjectConverterServiceImpl();
+    }
+
+    @Bean
+    public ObjectConverterBeanPostProcessor objectConverterBeanPostProcessor() {
+        return new ObjectConverterBeanPostProcessor(objectConverterService());
+    }
+
+}
+```
+
+You also need to define converter beans in the `AppContext` or using `@ComponentScan` annotation.
+
+### XML Schema-based configuration
+
+You still need to configure the same 2 beans:
+
+```xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Converter service bean -->
+    <bean class="com.github.vbauer.houdini.service.ObjectConverterServiceImpl" />
+
+    <!-- Bean post processor to register converters  -->
+    <bean class="com.github.vbauer.houdini.processor.ObjectConverterBeanPostProcessor" />
+
+</beans>
+```
+
+
 ## Example
 
 This tiny examples show the power of Houdini: one class, two converters, re-usable logic, no one line of excess code.
@@ -79,6 +128,17 @@ public class UserConverter {
 
 }
 ```
+
+Converting User domain object to DTO:
+```java
+final User user = new User()
+    .setId(ID)
+    .setLogin(LOGIN)
+    .setPassword(PASSWORD)
+
+final UserDTO userDTO = converterService.convert(UserDTO.class, user);
+```
+
 
 ## License
 
