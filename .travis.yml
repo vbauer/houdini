@@ -1,5 +1,5 @@
 language: java
-script: mvn install -DskipTests=false -P checkstyle,findbugs,pmd
+script: mvn install -DskipTests=false -P checkstyle,pmd
 jdk:
   - openjdk6
   - oraclejdk7
