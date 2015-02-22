@@ -3,6 +3,7 @@ package com.github.vbauer.houdini.model;
 import java.lang.reflect.Method;
 
 /**
+ * @param <T> class type
  * @author Vladislav Bauer
  */
 

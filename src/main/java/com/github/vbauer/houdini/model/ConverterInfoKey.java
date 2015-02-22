@@ -7,6 +7,7 @@ import java.util.List;
 
 
 /**
+ * @param <RESULT> class type
  * @author Vladislav Bauer
  */
 
@@ -32,7 +33,7 @@ public final class ConverterInfoKey<RESULT> {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(new Object[] { HoudiniUtils.size(getSources()), getTarget() });
+        return Arrays.hashCode(new Object[]{HoudiniUtils.size(getSources()), getTarget()});
     }
 
     @SuppressWarnings("unchecked")
