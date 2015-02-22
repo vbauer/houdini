@@ -5,12 +5,12 @@
 
 <img align="right" style="margin-left: 15px" width="300" height="315" src="misc/houdini.png">
 
-**Houdini** is a simple and humane type conversion system for Spring which allows you to prevent a lot of unnecessary code.
+**Houdini** is a simple and humane type conversion system for Spring framework, which allows you to prevent a lot of unnecessary code.
 
-When you have a deal with Spring Conversion API, you have to implement each converter as the separate class. It will produce a lot of excess code.
-Houdini allows you to aggregate different converters in the single place and re-use common logic without additional classes.
+When you work with Spring Conversion API, you have to implement each converter as a separate class. It produces a lot of excessive code.
+Houdini allows you to aggregate different converters in a single place and re-use common logic without additional classes.
 
-*Project was named in honor of Harry Houdini (born Erik Weisz, later Ehrich Weiss or Harry Weiss) who was a Hungarian-American illusionist and stunt performer, noted for his sensational escape acts.*
+*The project was named in honor of Harry Houdini (born Erik Weisz, later Ehrich Weiss or Harry Weiss) who was a Hungarian-American illusionist and stunt performer, noted for his sensational escape acts.*
 
 See an *Example* section for a quick start.
 
@@ -22,6 +22,7 @@ See an *Example* section for a quick start.
 * Completely re-usable components
 * Direct usage of converters if necessary
 * Preventing unnecessary code
+* Compatible with Spring 2.x+
 
 
 ## Setup
@@ -105,7 +106,7 @@ You still need to configure the same 2 beans:
 
 ## Conversation API
 
-To create new converter, you need to create a new Spring bean (or use an existed one) and mark this bean as converter using `@ObjectConverter` annotation.
+To make new converter, you need to create a new Spring bean (or use an existing one) and mark this bean as converter using `@ObjectConverter` annotation.
 
 It is possible to add this annotation on:
 * **Bean class** - all public methods from this class will be registered as converters.
@@ -124,7 +125,7 @@ That's all!
 
 ## Example
 
-This tiny examples show the power of Houdini: one class, two converters, re-usable logic, no one line of excess code.
+This tiny example shows the power of Houdini: one class, two converters, re-usable logic, no one line of excessive code.
 
 ```java
 @Component
