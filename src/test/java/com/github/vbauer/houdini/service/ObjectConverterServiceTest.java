@@ -86,8 +86,9 @@ public class ObjectConverterServiceTest extends BasicSpringTest {
 
     @Test(expected = DuplicatedObjectConverterException.class)
     public void testDuplicatedConverter() throws Exception {
+        final ObjectConverterRegistry registry = converterService.getConverterRegistry();
         final Method converter = userConverter.getClass().getDeclaredMethod("shortInfo", User.class);
-        converterService.registerConverterMethod(userConverter, converter);
+        registry.registerConverter(userConverter, converter);
     }
 
 

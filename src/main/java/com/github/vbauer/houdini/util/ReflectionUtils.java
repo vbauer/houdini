@@ -1,44 +1,20 @@
 package com.github.vbauer.houdini.util;
 
 import java.lang.reflect.Method;
-import java.util.Collection;
 
 /**
  * @author Vladislav Bauer 
  */
 
-public final class HoudiniUtils {
+public final class ReflectionUtils {
     
-    private HoudiniUtils() {
+    private ReflectionUtils() {
         throw new UnsupportedOperationException();
     }
 
-    
-    public static int size(final Collection collection) {
-        return collection == null ? 0 : collection.size();
-    }
-
-    public static <T> int size(final T[] array) {
-        return array == null ? 0 : array.length;
-    }
-
-    public static Object oneOrMany(@SuppressWarnings("rawtypes") final Collection collection) {
-        switch (size(collection)) {
-            case 0:
-                return null;
-            case 1:
-                return collection.iterator().next();
-            default:
-                return collection;
-        }
-    }
 
     @SuppressWarnings("unchecked")
     public static <T> Class<T> getClassWithoutProxies(final Object object) {
-        if (object == null) {
-            return null;
-        }
-        
         try {
             // XXX: Use HibernateProxyHelper to un-proxy object and get the original class.
             final Class<?> clazz = Class.forName("org.hibernate.proxy.HibernateProxyHelper");
@@ -46,7 +22,11 @@ public final class HoudiniUtils {
 
             return (Class<T>) method.invoke(null, object);
         } catch (final Exception ex) {
-            return (Class<T>) object.getClass();
+            try {
+                return (Class<T>) object.getClass();
+            } catch (final Exception e) {
+                return null;
+            }
         }
     }
 
@@ -56,7 +36,7 @@ public final class HoudiniUtils {
 
         for (int i = 0; i < size; i++) {
             final Object source = sources[i];
-            sourceClasses[i] = HoudiniUtils.getClassWithoutProxies(source);
+            sourceClasses[i] = ReflectionUtils.getClassWithoutProxies(source);
         }
 
         return sourceClasses;

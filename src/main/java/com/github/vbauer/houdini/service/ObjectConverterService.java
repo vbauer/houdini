@@ -1,6 +1,5 @@
 package com.github.vbauer.houdini.service;
 
-import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Set;
 
@@ -10,7 +9,7 @@ import java.util.Set;
 
 public interface ObjectConverterService {
 
-    void registerConverterMethod(Object bean, Method method);
+    ObjectConverterRegistry getConverterRegistry();
 
     <RESULT> RESULT convert(Class<RESULT> resultClass, Object... sources);
 

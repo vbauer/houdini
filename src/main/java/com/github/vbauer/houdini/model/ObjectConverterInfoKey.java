@@ -1,6 +1,6 @@
 package com.github.vbauer.houdini.model;
 
-import com.github.vbauer.houdini.util.HoudiniUtils;
+import com.github.vbauer.houdini.util.CollectionUtils;
 
 import java.util.Arrays;
 
@@ -32,7 +32,7 @@ public final class ObjectConverterInfoKey<RESULT> {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(new Object[]{HoudiniUtils.size(getSources()), getTarget()});
+        return Arrays.hashCode(new Object[]{CollectionUtils.size(getSources()), getTarget()});
     }
 
     @SuppressWarnings("unchecked")
@@ -50,8 +50,8 @@ public final class ObjectConverterInfoKey<RESULT> {
         final Class<?>[] selfSources = getSources();
         final Class<?>[] otherSources = other.getSources();
 
-        final int selfLength = HoudiniUtils.size(selfSources);
-        final int otherLength = HoudiniUtils.size(otherSources);
+        final int selfLength = CollectionUtils.size(selfSources);
+        final int otherLength = CollectionUtils.size(otherSources);
 
         if (selfLength != otherLength) {
             return false;

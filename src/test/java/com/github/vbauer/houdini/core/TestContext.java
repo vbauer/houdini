@@ -2,7 +2,7 @@ package com.github.vbauer.houdini.core;
 
 import com.github.vbauer.houdini.processor.ObjectConverterBeanPostProcessor;
 import com.github.vbauer.houdini.service.ObjectConverterService;
-import com.github.vbauer.houdini.service.ObjectConverterServiceImpl;
+import com.github.vbauer.houdini.service.impl.ObjectConverterServiceImpl;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;

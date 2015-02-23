@@ -1,10 +1,10 @@
 package com.github.vbauer.houdini.processor;
 
 import com.github.vbauer.houdini.annotation.ObjectConverter;
+import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.service.ObjectConverterService;
-import com.github.vbauer.houdini.util.HoudiniUtils;
+import com.github.vbauer.houdini.util.ReflectionUtils;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import org.springframework.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 
@@ -29,27 +29,28 @@ public class ObjectConverterBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(final Object bean, final String beanName) {
-        final Class<?> beanClass = HoudiniUtils.getClassWithoutProxies(bean);
+        final Class<?> beanClass = ReflectionUtils.getClassWithoutProxies(bean);
 
-        ReflectionUtils.doWithMethods(
-            beanClass,
-            new ReflectionUtils.MethodCallback() {
-                @Override
-                public void doWith(final Method method) throws IllegalAccessException {
-                    converterService.registerConverterMethod(bean, method);
-                }
-            },
-            new ReflectionUtils.MethodFilter() {
-                @Override
-                public boolean matches(final Method method) {
-                    final boolean isDeclaredMethod = method.getDeclaringClass() == beanClass;
-                    final boolean isProxyMethod = method.isBridge() || method.isSynthetic();
-                    final boolean hasAnnotation = method.getAnnotation(ObjectConverter.class) != null
-                            || beanClass.getAnnotation(ObjectConverter.class) != null;
+        org.springframework.util.ReflectionUtils.doWithMethods(
+                beanClass,
+                new org.springframework.util.ReflectionUtils.MethodCallback() {
+                    @Override
+                    public void doWith(final Method method) throws IllegalAccessException {
+                        final ObjectConverterRegistry registry = converterService.getConverterRegistry();
+                        registry.registerConverter(bean, method);
+                    }
+                },
+                new org.springframework.util.ReflectionUtils.MethodFilter() {
+                    @Override
+                    public boolean matches(final Method method) {
+                        final boolean isDeclaredMethod = method.getDeclaringClass() == beanClass;
+                        final boolean isProxyMethod = method.isBridge() || method.isSynthetic();
+                        final boolean hasAnnotation = method.getAnnotation(ObjectConverter.class) != null
+                                || beanClass.getAnnotation(ObjectConverter.class) != null;
 
-                    return !isProxyMethod && isDeclaredMethod && hasAnnotation;
+                        return !isProxyMethod && isDeclaredMethod && hasAnnotation;
+                    }
                 }
-            }
         );
 
         return bean;
