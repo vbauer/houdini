@@ -104,7 +104,7 @@ You still need to configure the same 2 beans:
 ```
 
 
-## Conversionyou API
+## Conversion API
 
 To make new converter, you need to create a new Spring bean (or use an existing one) and mark this bean as converter using `@ObjectConverter` annotation.
 
