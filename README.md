@@ -5,7 +5,7 @@
 
 <img align="right" style="margin-left: 15px" width="300" height="315" src="misc/houdini.png">
 
-**Houdini** is a simple and humane type conversion system for Spring framework, which allows you to prevent a lot of unnecessary code.
+**Houdini** is a simple and humane type conversion system for [Spring](https://spring.io) framework, which allows you to prevent a lot of unnecessary code.
 
 When you work with [Spring Type Conversion](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/validation.html#core-convert) API,
 you have to implement each converter as a separate class. It produces a lot of excessive code.
@@ -51,7 +51,7 @@ Using Spring converters you need to create new POJO and new converters to resolv
 Houdini allows to use additional conditional parameters. (See an Example section).
 
 **Out of Spring context**<br/>
-This is a rare case, but sometimes we need to use some converters without ConversionService.
+This is a rare case, but sometimes we need to use some converters without [ConversionService](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/convert/ConversionService.html).
 It could be needed when our code is out of Spring context (ex: shared code for Spring and [GWT](http://www.gwtproject.org) apps).
 Using Houdini we could put all needed converters into a single bean and use it like a simple single Java class.
 
