@@ -7,7 +7,8 @@
 
 **Houdini** is a simple and humane type conversion system for Spring framework, which allows you to prevent a lot of unnecessary code.
 
-When you work with Spring Conversion API, you have to implement each converter as a separate class. It produces a lot of excessive code.
+When you work with [Spring Type Conversion](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/validation.html#core-convert) API,
+you have to implement each converter as a separate class. It produces a lot of excessive code.
 Houdini allows you to aggregate different converters in a single place and re-use common logic without additional classes.
 
 *The project was named in honor of Harry Houdini (born Erik Weisz, later Ehrich Weiss or Harry Weiss) who was a Hungarian-American illusionist and stunt performer, noted for his sensational escape acts.*
@@ -30,15 +31,15 @@ See an *Example* section for a quick start.
 Usually, each big project with Spring converters has the following problems:
 
 **A huge number of converter classes**<br/>
-Houdini allows to join several converters into single Spring bean (unlike Spring), so it will minimize number of
-classes and to prevent unnecessary code. For example, you can join converters by functionality or by modules.
-It also simplify source code navigation for developer. Less useful feature is that fewer classes also decreases
-compilation time a little bit.
+Houdini allows to join several converters into a single Spring bean (unlike Spring), so it will minimize the number of
+classes and prevent unnecessary code. For example, you can join converters by functionality or by modules.
+It also simplifies source code navigation for developer.
+An additional feature is that the smaller class number of classes also decreases compilation time a little bit.
 
 **Duplicated code in converters**<br/>
-Some converters could be very similar to other (except filling of some fields). Using Spring most likely to see
-basic classes or shared components to resolve this situation. Using Houdini it is unnecessary to create additional
-classes, you can just put this logic in a new method.
+Some converters could be very similar to other (except filling of some fields).
+Using Spring it is most likely to see basic classes or shared components to resolve this situation.
+Using Houdini it is unnecessary to create additional classes, you can just put this logic in a new method.
 
 **Conditional converters**<br/>
 It is a typical situation for REST services:
@@ -51,8 +52,8 @@ Houdini allows to use additional conditional parameters. (See an Example section
 
 **Out of Spring context**<br/>
 This is a rare case, but sometimes we need to use some converters without ConversionService.
-It could be needed when our code is out of Spring context (ex: shared code for Spring and GWT apps).
-Using Houdini we could put all needed converters into single bean and use it like a simple single Java class.
+It could be needed when our code is out of Spring context (ex: shared code for Spring and [GWT](http://www.gwtproject.org) apps).
+Using Houdini we could put all needed converters into a single bean and use it like a simple single Java class.
 
 
 ## Setup
