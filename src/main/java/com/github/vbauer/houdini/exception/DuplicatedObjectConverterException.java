@@ -8,6 +8,7 @@ import java.util.Arrays;
  * @author Vladislav Bauer
  */
 
+@SuppressWarnings("serial")
 public class DuplicatedObjectConverterException extends ObjectConverterException {
 
     private final Class<?>[] parameterTypes;

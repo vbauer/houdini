@@ -19,7 +19,6 @@ import java.util.Set;
  * @author Vladislav Bauer
  */
 
-@SuppressWarnings("SpringJavaAutowiringInspection")
 public class ObjectConverterServiceTest extends BasicSpringTest {
 
     private static final int ID = 1;

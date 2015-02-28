@@ -13,7 +13,7 @@ public final class CollectionUtils {
     }
 
 
-    public static int size(final Collection collection) {
+    public static int size(final Collection<?> collection) {
         return collection == null ? 0 : collection.size();
     }
 
@@ -21,7 +21,7 @@ public final class CollectionUtils {
         return array == null ? 0 : array.length;
     }
 
-    public static Object oneOrMany(@SuppressWarnings("rawtypes") final Collection collection) {
+    public static Object oneOrMany(final Collection<?> collection) {
         switch (size(collection)) {
             case 0:
                 return null;

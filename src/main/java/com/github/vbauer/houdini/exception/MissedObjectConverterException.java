@@ -8,6 +8,7 @@ import java.util.Arrays;
  * @author Vladislav Bauer
  */
 
+@SuppressWarnings("serial")
 public class MissedObjectConverterException extends ObjectConverterException {
 
     private final Class<?>[] parameterTypes;

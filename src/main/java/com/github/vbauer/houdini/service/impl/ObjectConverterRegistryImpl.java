@@ -28,7 +28,8 @@ public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {
         final Class<?> returnType = method.getReturnType();
         final Class<?>[] parameterTypes = method.getParameterTypes();
 
-        final ObjectConverterInfoValue<?> result = converters.putIfAbsent(
+        @SuppressWarnings("rawtypes")
+		final ObjectConverterInfoValue<?> result = converters.putIfAbsent(
             new ObjectConverterInfoKey(returnType, parameterTypes),
             new ObjectConverterInfoValue<Object>(method, bean)
         );

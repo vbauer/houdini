@@ -21,7 +21,7 @@ public class CollectionUtilsTest extends BasicTest {
 
     @Test
     public void testSizeCollection() {
-        Assert.assertEquals(0, CollectionUtils.size((Collection) null));
+        Assert.assertEquals(0, CollectionUtils.size((Collection<?>) null));
         Assert.assertEquals(0, CollectionUtils.size(Collections.emptyList()));
         Assert.assertEquals(0, CollectionUtils.size(Collections.emptySet()));
         Assert.assertEquals(1, CollectionUtils.size(Collections.singleton(1)));
@@ -37,8 +37,8 @@ public class CollectionUtilsTest extends BasicTest {
         Assert.assertEquals(1, CollectionUtils.oneOrMany(Collections.singletonList(1)));
 
         final List<Integer> list = Arrays.asList(1, 2);
-        Assert.assertEquals(2, ((Collection) CollectionUtils.oneOrMany(list)).size());
-        Assert.assertEquals(2, ((Collection) CollectionUtils.oneOrMany(new HashSet<Integer>(list))).size());
+        Assert.assertEquals(2, ((Collection<?>) CollectionUtils.oneOrMany(list)).size());
+        Assert.assertEquals(2, ((Collection<?>) CollectionUtils.oneOrMany(new HashSet<Integer>(list))).size());
     }
 
     @Test
