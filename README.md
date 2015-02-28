@@ -25,6 +25,35 @@ See an *Example* section for a quick start.
 * Compatible with Spring 2.x+
 
 
+## Comparison with Spring converters
+
+Usually, each big project with Spring converters has the following problems:
+
+**A huge number of converter classes**<br/>
+Houdini allows to join several converters into single Spring bean (unlike Spring), so it will minimize number of
+classes and to prevent unnecessary code. For example, you can join converters by functionality or by modules.
+It also simplify source code navigation for developer. Less useful feature is that fewer classes also decreases
+compilation time a little bit.
+
+**Duplicated code in converters**<br/>
+Some converters could be very similar to other (except filling of some fields). Using Spring most likely to see
+basic classes or shared components to resolve this situation. Using Houdini it is unnecessary to create additional
+classes, you can just put this logic in a new method.
+
+**Conditional converters**<br/>
+It is a typical situation for REST services:
+* sometimes it is necessary to send full information,
+* sometimes short information,
+* or need to combine it somehow using conditionals.
+Using Spring converters you need to create new POJO and new converters to resolve it.
+Houdini allows to use additional conditional parameters. (See an Example section).
+
+**Out of Spring context**<br/>
+This is a rare case, but sometimes we need to use some converters without ConversionService.
+It could be needed when our code is out of Spring context (ex: shared code for Spring and GWT apps).
+Using Houdini we could put all needed converters into single bean and use it like a simple single Java class.
+
+
 ## Setup
 
 Maven:
