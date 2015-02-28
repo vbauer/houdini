@@ -45,6 +45,7 @@ It is a typical situation for REST services:
 * sometimes it is necessary to send full information,
 * sometimes short information,
 * or need to combine it somehow using conditionals.
+
 Using Spring converters you need to create new POJO and new converters to resolve it.
 Houdini allows to use additional conditional parameters. (See an Example section).
 
