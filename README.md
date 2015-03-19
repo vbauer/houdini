@@ -197,6 +197,7 @@ final UserDTO fullUserDTO = converterService.convert(UserDTO.class, user, true);
 
 ## Might also like
 
+* [jackdaw](https://github.com/vbauer/jackdaw) - Java Annotation Processor which allows to simplify development.
 * [herald](https://github.com/vbauer/herald) - Logging annotation for Spring framework.
 * [caesar](https://github.com/vbauer/caesar) - Library that allows to create async beans from sync beans.
 * [commons-vfs2-cifs](https://github.com/vbauer/commons-vfs2-cifs) - SMB/CIFS provider for Commons VFS.
