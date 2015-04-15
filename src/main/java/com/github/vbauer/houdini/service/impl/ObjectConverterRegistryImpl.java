@@ -23,16 +23,14 @@ public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {
 
 
     @Override
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     public void registerConverter(final Object bean, final Method method) {
         final Class<?> returnType = method.getReturnType();
         final Class<?>[] parameterTypes = method.getParameterTypes();
 
-        @SuppressWarnings("rawtypes")
-        final ObjectConverterInfoValue<?> result = converters.putIfAbsent(
-            new ObjectConverterInfoKey(returnType, parameterTypes),
-            new ObjectConverterInfoValue<Object>(method, bean)
-        );
+        final ObjectConverterInfoKey key = new ObjectConverterInfoKey(returnType, parameterTypes);
+        final ObjectConverterInfoValue<Object> value = new ObjectConverterInfoValue<Object>(method, bean);
+        final ObjectConverterInfoValue<?> result = converters.putIfAbsent(key, value);
 
         if (result != null) {
             throw new DuplicatedObjectConverterException(returnType, parameterTypes);
