@@ -83,6 +83,11 @@ public class ObjectConverterServiceTest extends BasicSpringTest {
         converterService.convert(Object.class, (Object) null);
     }
 
+    @Test(expected = MissedObjectConverterException.class)
+    public void testNullSource() {
+        converterService.convert(UserDTO.class, (User) null);
+    }
+
     @Test(expected = DuplicatedObjectConverterException.class)
     public void testDuplicatedConverter() throws Exception {
         final ObjectConverterRegistry registry = converterService.getConverterRegistry();

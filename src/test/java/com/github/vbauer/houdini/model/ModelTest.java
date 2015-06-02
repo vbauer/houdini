@@ -42,7 +42,12 @@ public class ModelTest extends BasicTest {
 
     @Test
     public void testObjectConverterInfoValue() {
-        final ObjectConverterInfoValue<Integer> value = new ObjectConverterInfoValue<Integer>(null, 1);
+        final Integer object = 1;
+        final ObjectConverterInfoValue<Integer> value =
+            new ObjectConverterInfoValue<Integer>(null, object);
+
+        Assert.assertEquals(object, value.getObject());
+        Assert.assertNull(value.getMethod());
         Assert.assertNotNull(value.toString());
     }
 
