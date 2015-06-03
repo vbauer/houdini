@@ -15,7 +15,9 @@ public class MissedObjectConverterException extends ObjectConverterException {
     private final Class<?> returnType;
 
 
-    public MissedObjectConverterException(final Class<?> returnType, final Class<?>... parameterTypes) {
+    public MissedObjectConverterException(
+        final Class<?> returnType, final Class<?>... parameterTypes
+    ) {
         this.returnType = returnType;
         this.parameterTypes = parameterTypes;
     }

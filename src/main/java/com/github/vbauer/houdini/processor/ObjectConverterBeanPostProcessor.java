@@ -31,36 +31,50 @@ public class ObjectConverterBeanPostProcessor implements BeanPostProcessor {
 
     @Override
     public Object postProcessAfterInitialization(final Object bean, final String beanName) {
-        final ObjectConverterRegistry registry = converterService.getConverterRegistry();
-        return registerConverters(registry, bean);
+        return registerConverters(bean);
     }
 
 
-    private Object registerConverters(final ObjectConverterRegistry registry, final Object bean) {
+    /*
+     * Internal API.
+     */
+
+    private Object registerConverters(final Object bean) {
         final Class<?> beanClass = ReflectionUtils.getClassWithoutProxies(bean);
 
-        org.springframework.util.ReflectionUtils.doWithMethods(
-            beanClass,
-            new MethodCallback() {
-                @Override
-                public void doWith(final Method method) throws IllegalAccessException {
-                    registry.registerConverter(bean, method);
-                }
-            },
-            new MethodFilter() {
-                @Override
-                public boolean matches(final Method method) {
-                    final boolean isDeclaredMethod = method.getDeclaringClass() == beanClass;
-                    final boolean isProxyMethod = method.isBridge() || method.isSynthetic();
-                    final boolean hasAnnotation = method.getAnnotation(ObjectConverter.class) != null
-                        || beanClass.getAnnotation(ObjectConverter.class) != null;
-
-                    return !isProxyMethod && isDeclaredMethod && hasAnnotation;
-                }
-            }
-        );
+        if (beanClass != null) {
+            org.springframework.util.ReflectionUtils.doWithMethods(
+                beanClass,
+                createMethodCallback(bean),
+                createMethodFilter(beanClass)
+            );
+        }
 
         return bean;
+    }
+
+    private MethodCallback createMethodCallback(final Object bean) {
+        return new MethodCallback() {
+            @Override
+            public void doWith(final Method method) throws IllegalAccessException {
+                final ObjectConverterRegistry registry = converterService.getConverterRegistry();
+                registry.registerConverter(bean, method);
+            }
+        };
+    }
+
+    private MethodFilter createMethodFilter(final Class<?> beanClass) {
+        return new MethodFilter() {
+            @Override
+            public boolean matches(final Method method) {
+                final boolean isDeclaredMethod = method.getDeclaringClass() == beanClass;
+                final boolean isProxyMethod = method.isBridge() || method.isSynthetic();
+                final boolean hasAnnotation = method.getAnnotation(ObjectConverter.class) != null
+                    || beanClass.getAnnotation(ObjectConverter.class) != null;
+
+                return !isProxyMethod && isDeclaredMethod && hasAnnotation;
+            }
+        };
     }
 
 }

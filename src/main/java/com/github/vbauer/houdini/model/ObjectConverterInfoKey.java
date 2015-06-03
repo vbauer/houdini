@@ -43,10 +43,24 @@ public final class ObjectConverterInfoKey<RESULT> {
         }
 
         final ObjectConverterInfoKey<RESULT> other = (ObjectConverterInfoKey<RESULT>) obj;
-        if (getTarget() != other.getTarget()) {
-            return false;
-        }
+        return hasSameTarget(other) && hasSameSources(other);
+    }
 
+    @Override
+    public String toString() {
+        return String.format("[%s %s]", Arrays.toString(getSources()), getTarget());
+    }
+
+
+    /*
+     * Internal API.
+     */
+
+    private boolean hasSameTarget(final ObjectConverterInfoKey<RESULT> other) {
+        return getTarget() == other.getTarget();
+    }
+
+    private boolean hasSameSources(final ObjectConverterInfoKey<RESULT> other) {
         final Class<?>[] selfSources = getSources();
         final Class<?>[] otherSources = other.getSources();
 
@@ -69,11 +83,6 @@ public final class ObjectConverterInfoKey<RESULT> {
         }
 
         return true;
-    }
-
-    @Override
-    public String toString() {
-        return String.format("[%s %s]", Arrays.toString(getSources()), getTarget());
     }
 
 }
