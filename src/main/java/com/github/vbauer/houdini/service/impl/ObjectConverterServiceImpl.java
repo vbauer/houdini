@@ -4,6 +4,7 @@ import com.github.vbauer.houdini.model.ObjectConverterInfoValue;
 import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.service.ObjectConverterService;
 import com.github.vbauer.houdini.util.CollectionUtils;
+import com.github.vbauer.houdini.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.util.*;
@@ -66,7 +67,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
     private <RESULT, COLLECTION extends Collection<RESULT>> COLLECTION processObjects(
         final Collection<?> sources, final Class<RESULT> resultClass, final COLLECTION result
     ) {
-        if (!org.springframework.util.CollectionUtils.isEmpty(sources)) {
+        if (!CollectionUtils.isEmpty(sources)) {
             for (final Object source : sources) {
                 final ObjectConverterRegistry registry = getConverterRegistry();
                 final ObjectConverterInfoValue<RESULT> converterInfo = registry.findConverter(resultClass, source);
@@ -87,7 +88,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
         try {
             return (RESULT) method.invoke(object, sources);
         } catch (final Exception ex) {
-            org.springframework.util.ReflectionUtils.handleReflectionException(ex);
+            ReflectionUtils.handleReflectionException(ex);
             return null;
         }
     }

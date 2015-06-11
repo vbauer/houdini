@@ -17,7 +17,7 @@ public class UserConverter {
         return fullInfo(user, false);
     }
 
-    public UserDTO fullInfo(final User user, Boolean full) {
+    public UserDTO fullInfo(final User user, final Boolean full) {
         final UserDTO userDTO = new UserDTO()
             .setId(user.getId())
             .setLogin(user.getLogin());
@@ -27,6 +27,10 @@ public class UserConverter {
         }
 
         return userDTO;
+    }
+
+    public UserDTO badConverter(final User user, final Boolean full, final Boolean male) {
+        throw new UnsupportedOperationException("Converter is not supported");
     }
 
 }

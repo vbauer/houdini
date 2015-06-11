@@ -13,6 +13,13 @@ import java.util.*;
 public class CollectionUtilsTest extends BasicTest {
 
     @Test
+    public void testIsEmptyCollection() {
+        Assert.assertTrue(CollectionUtils.isEmpty(null));
+        Assert.assertTrue(CollectionUtils.isEmpty(Collections.EMPTY_LIST));
+        Assert.assertFalse(CollectionUtils.isEmpty(Collections.singleton(1)));
+    }
+
+    @Test
     public void testSizeArray() {
         Assert.assertEquals(0, CollectionUtils.size((Integer[]) null));
         Assert.assertEquals(0, CollectionUtils.size(new Integer[]{}));

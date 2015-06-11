@@ -13,6 +13,10 @@ public final class CollectionUtils {
     }
 
 
+    public static boolean isEmpty(final Collection<?> collection) {
+        return size(collection) == 0;
+    }
+
     public static int size(final Collection<?> collection) {
         return collection == null ? 0 : collection.size();
     }

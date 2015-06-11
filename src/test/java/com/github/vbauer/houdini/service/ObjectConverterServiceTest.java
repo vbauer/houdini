@@ -46,6 +46,12 @@ public class ObjectConverterServiceTest extends BasicSpringTest {
         checkUserDTO(userDTO, true);
     }
 
+    @Test(expected = UnsupportedOperationException.class)
+    public void testBadConverter() {
+        final User user = createUser();
+        converterService.convert(UserDTO.class, user, true, true);
+    }
+
     @Test
     public void testShortUserInfoSet() {
         final Set<User> users = Collections.singleton(createUser());
