@@ -10,7 +10,6 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -97,8 +96,7 @@ public class ObjectConverterServiceTest extends BasicSpringTest {
     @Test(expected = DuplicatedObjectConverterException.class)
     public void testDuplicatedConverter() throws Exception {
         final ObjectConverterRegistry registry = converterService.getConverterRegistry();
-        final Method converter = userConverter.getClass().getDeclaredMethod("shortInfo", User.class);
-        registry.registerConverter(userConverter, converter);
+        registry.registerConverters(userConverter);
     }
 
 
