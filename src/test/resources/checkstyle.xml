@@ -23,7 +23,6 @@
     <!--<module name="StrictDuplicateCode"/>-->
 
     <module name="TreeWalker">
-        <module name="AbstractClassName"/>
         <module name="AnnotationUseStyle"/>
         <module name="AnonInnerLength"/>
         <module name="ArrayTrailingComma"/>
@@ -137,6 +136,7 @@
         <module name="WhitespaceAround"/>
 
         <!-- Unused checks: -->
+        <!--<module name="AbstractClassName"/>-->
         <!--<module name="AvoidInlineConditionals"/>-->
         <!--<module name="ClassDataAbstractionCoupling"/>-->
         <!--<module name="ClassFanOutComplexity"/>-->
