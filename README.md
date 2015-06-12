@@ -29,9 +29,9 @@ See an *[Example](https://github.com/vbauer/houdini#example)* section for a quic
   * [Spring](https://spring.io) 2.x+
 
 
-## Comparison with other conversion systems (like Spring's Converter)
+## Comparison with other conversion systems
 
-Usually, each big project with some conversion system (ex. Spring) has the following problems:
+Usually, each big project with some conversion system (ex. Spring's Converters) has the following problems:
 
 **A huge number of converter classes**<br/>
 Houdini allows to join several converters into a single bean (unlike Spring converters), so it will minimize the 
@@ -54,9 +54,10 @@ Using Spring converters you need to create new POJO and new converters to resolv
 Houdini allows to use additional conditional parameters. (See an Example section).
 
 **Out of IOC context**<br/>
-This is a rare case for JEE developers, but sometimes it's necessary to use some converters without something like [ConversionService](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/convert/ConversionService.html).
+This is a rare case for JEE developers (and typical case for others), but sometimes it's necessary to use some 
+converters without something like [ConversionService](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/convert/ConversionService.html).
 It could be needed when our code is out of Spring context (ex: shared code for Spring and [GWT](http://www.gwtproject.org) apps).
-Using Houdini we could put all needed converters into a single bean and use it like a simple single Java class.
+Using Houdini we could put all needed converters into a single bean and use it like a simple Java class.
 
 
 ## Setup
@@ -96,8 +97,14 @@ dependencies {
 
 ## Configuration
 
-**Houdini** doesn't depended on third-party dependencies, but have mechanism to make integration with Spring framework.
-It can be used with pure Java or Android projects.
+To work with Houdini's magic, you have 2 basic interfaces and corresponding implementations:
+* ObjectConverterRegistry (ObjectConverterRegistryImpl) is needed to store and search converters.
+* ObjectConverterService (ObjectConverterServiceImpl) allows to convert some data to another data.
+
+**Reminder:**
+
+Houdini isn't dependent on third-party dependencies, but it has extra integration with Spring.
+Of course, it can be used with pure Java or Android projects.
 
 ### Java / Android configuration
 
@@ -116,7 +123,7 @@ final ObjectConverterRegistry registry = new ObjectConverterRegistryImpl();
 final ObjectConverterService converterService = new ObjectConverterServiceImpl(registry);
 ```
 
-You can also use default registry with `ObjectConverterService`, *1LOC*:
+You can also use default registry object with `ObjectConverterService`, *1LOC*:
 ```java
 final ObjectConverterService converterService = new ObjectConverterServiceImpl();
 ```
@@ -195,7 +202,7 @@ That's all!
 This tiny example shows the power of Houdini: one class, two converters, re-usable logic, no one line of excessive code.
 
 ```java
-// For integration with Spring also use @Component annotation.
+// Use also @Component annotation in case of Spring framework.
 @ObjectConverter
 public class UserConverter {
 
