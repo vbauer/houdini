@@ -6,6 +6,7 @@ import com.github.vbauer.houdini.exception.DuplicatedObjectConverterException;
 import com.github.vbauer.houdini.exception.MissedObjectConverterException;
 import com.github.vbauer.houdini.model.User;
 import com.github.vbauer.houdini.model.UserDTO;
+import com.github.vbauer.houdini.service.impl.ObjectConverterServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.util.Set;
  * @author Vladislav Bauer
  */
 
+@SuppressWarnings("SpringJavaAutowiringInspection")
 public class ObjectConverterServiceTest extends BasicSpringTest {
 
     private static final int ID = 1;
@@ -99,6 +101,16 @@ public class ObjectConverterServiceTest extends BasicSpringTest {
         registry.registerConverters(userConverter);
     }
 
+    @Test
+    public void testWithoutSpring() {
+        final ObjectConverterService converterService = new ObjectConverterServiceImpl();
+        final ObjectConverterRegistry registry = converterService.getConverterRegistry();
+        registry.registerConverters(new UserConverter());
+
+        final User user = createUser();
+        final UserDTO userDTO = converterService.convert(UserDTO.class, user, true);
+        checkUserDTO(userDTO, true);
+    }
 
     /*
      * Helper methods.
