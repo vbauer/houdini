@@ -13,7 +13,7 @@ Houdini allows you to aggregate different converters in a single place and re-us
 
 *The project was named in honor of Harry Houdini (born Erik Weisz, later Ehrich Weiss or Harry Weiss) who was a Hungarian-American illusionist and stunt performer, noted for his sensational escape acts.*
 
-See an *Example* section for a quick start.
+See an *[Example](https://github.com/vbauer/houdini#example)* section for a quick start.
 
 
 ## Main features
@@ -54,7 +54,7 @@ Using Spring converters you need to create new POJO and new converters to resolv
 Houdini allows to use additional conditional parameters. (See an Example section).
 
 **Out of IOC context**<br/>
-This is a rare case, but sometimes we need to use some converters without [ConversionService](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/convert/ConversionService.html).
+This is a rare case for JEE developers, but sometimes it's necessary to use some converters without something like [ConversionService](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/convert/ConversionService.html).
 It could be needed when our code is out of Spring context (ex: shared code for Spring and [GWT](http://www.gwtproject.org) apps).
 Using Houdini we could put all needed converters into a single bean and use it like a simple single Java class.
 
@@ -100,25 +100,21 @@ dependencies {
 **Houdini** doesn't depended on third-party dependencies, but have mechanism to make integration with Spring framework.
 It can be used with pure Java or Android projects.
 
-### Java/Android configuration
+### Java / Android configuration
 
-How to use Houdini:
+How to configure Houdini with pure Java:
 
-1. Registry all necessary converters:
 ```java
+// Registry all necessary converters:
 final ObjectConverterRegistry registry = new ObjectConverterRegistryImpl();
-registry.registerConverters(new UserConverter());
-registry.registerConverters(new RoleConverter());
-registry.registerConverters(new CompanyConverter());
-```
-2. Create service to make conversions (or you can make simple singleton object):
-```java
+
+// After that you can specify all needed converters:
+// registry.registerConverters(new UserConverter());
+// registry.registerConverters(new RoleConverter());
+// registry.registerConverters(new CompanyConverter());
+
+// Create service to make conversions (or you can make simple singleton object):
 final ObjectConverterService converterService = new ObjectConverterServiceImpl();
-```
-3. Convert User entity to UserDTO object.
-```java
-final User user = createUser(); // Some method which allows to create POJO.
-final UserDTO userDTO = converterService.convert(UserDTO.class, user);
 ```
 
 ### Spring configuration
