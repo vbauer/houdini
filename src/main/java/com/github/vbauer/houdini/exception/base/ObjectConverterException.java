@@ -5,5 +5,11 @@ package com.github.vbauer.houdini.exception.base;
  */
 
 @SuppressWarnings("serial")
-public class ObjectConverterException extends RuntimeException {
+public abstract class ObjectConverterException extends RuntimeException {
+
+    @Override
+    public String getMessage() {
+        return "Exception happened in conversion mechanism";
+    }
+
 }

@@ -65,7 +65,8 @@ public final class ReflectionUtils {
     }
 
     public static void handleInvocationTargetException(final InvocationTargetException ex) {
-        rethrowRuntimeException(ex.getTargetException());
+        final Throwable targetException = ex.getTargetException();
+        rethrowRuntimeException(targetException);
     }
 
     public static void rethrowRuntimeException(final Throwable ex) {

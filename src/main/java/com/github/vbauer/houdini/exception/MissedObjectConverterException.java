@@ -1,6 +1,6 @@
 package com.github.vbauer.houdini.exception;
 
-import com.github.vbauer.houdini.exception.base.ObjectConverterException;
+import com.github.vbauer.houdini.exception.base.MethodObjectConverterException;
 
 import java.util.Arrays;
 
@@ -9,26 +9,12 @@ import java.util.Arrays;
  */
 
 @SuppressWarnings("serial")
-public class MissedObjectConverterException extends ObjectConverterException {
-
-    private final Class<?>[] parameterTypes;
-    private final Class<?> returnType;
-
+public class MissedObjectConverterException extends MethodObjectConverterException {
 
     public MissedObjectConverterException(
         final Class<?> returnType, final Class<?>... parameterTypes
     ) {
-        this.returnType = returnType;
-        this.parameterTypes = parameterTypes;
-    }
-
-
-    public Class<?>[] getParameterTypes() {
-        return parameterTypes;
-    }
-
-    public Class<?> getReturnType() {
-        return returnType;
+        super(returnType, parameterTypes);
     }
 
 
