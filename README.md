@@ -5,9 +5,9 @@
 
 <img align="right" style="margin-left: 15px" width="300" height="315" src="misc/houdini.png">
 
-**Houdini** is a simple and humane type conversion system for [Spring](https://spring.io) framework, which allows you to prevent a lot of unnecessary code.
+**Houdini** is a simple and humane type conversion system, which allows you to prevent a lot of unnecessary code.
 
-When you work with [Spring Type Conversion](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/validation.html#core-convert) API,
+For example, when you work with [Spring Type Conversion](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/validation.html#core-convert) API,
 you have to implement each converter as a separate class. It produces a lot of excessive code.
 Houdini allows you to aggregate different converters in a single place and re-use common logic without additional classes.
 
@@ -23,16 +23,19 @@ See an *Example* section for a quick start.
 * Completely re-usable components
 * Direct usage of converters if necessary
 * Preventing unnecessary code
-* Compatible with Spring 2.x+
+* Compatible with:
+  * Java 6+ (SE/EE)
+  * Android platform
+  * [Spring](https://spring.io) 2.x+
 
 
-## Comparison with Spring converters
+## Comparison with other conversion systems (like Spring's Converter)
 
-Usually, each big project with Spring converters has the following problems:
+Usually, each big project with some conversion system (ex. Spring) has the following problems:
 
 **A huge number of converter classes**<br/>
-Houdini allows to join several converters into a single Spring bean (unlike Spring), so it will minimize the number of
-classes and prevent unnecessary code. For example, you can join converters by functionality or by modules.
+Houdini allows to join several converters into a single bean (unlike Spring converters), so it will minimize the 
+number of classes and prevent unnecessary code. For example, you can join converters by functionality or by modules.
 It also simplifies source code navigation for developer.
 An additional feature is that the smaller class number of classes also decreases compilation time a little bit.
 
@@ -50,7 +53,7 @@ It is a typical situation for REST services:
 Using Spring converters you need to create new POJO and new converters to resolve it.
 Houdini allows to use additional conditional parameters. (See an Example section).
 
-**Out of Spring context**<br/>
+**Out of IOC context**<br/>
 This is a rare case, but sometimes we need to use some converters without [ConversionService](http://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/core/convert/ConversionService.html).
 It could be needed when our code is out of Spring context (ex: shared code for Spring and [GWT](http://www.gwtproject.org) apps).
 Using Houdini we could put all needed converters into a single bean and use it like a simple single Java class.
@@ -58,7 +61,7 @@ Using Houdini we could put all needed converters into a single bean and use it l
 
 ## Setup
 
-Maven:
+### Maven
 ```xml
 <repository>
     <id>jitpack.io</id>
@@ -68,11 +71,11 @@ Maven:
 <dependency>
     <groupId>com.github.vbauer</groupId>
     <artifactId>houdini</artifactId>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
 </dependency>
 ```
 
-Gradle:
+### Gradle
 ```groovy
 repositories {
     maven {
@@ -81,14 +84,51 @@ repositories {
 }
 
 dependencies {
-    compile 'com.github.vbauer:houdini:1.1.0'
+    compile 'com.github.vbauer:houdini:1.2.0'
 }
 ```
 
+### Leiningen
+```clojure
+:repositories [["jitpack.io" "https://jitpack.io"]]
+
+:dependencies [[com.github.vbauer/houdini "1.2.0"]]
+```
 
 ## Configuration
 
-### Java based configuration
+**Houdini** doesn't depended on third-party dependencies, but have mechanism to make integration with Spring framework.
+It can be used with pure Java or Android projects.
+
+### Java/Android configuration
+
+How to use Houdini:
+
+1. Registry all necessary converters:
+```java
+final ObjectConverterRegistry registry = new ObjectConverterRegistryImpl();
+registry.registerConverters(new UserConverter());
+registry.registerConverters(new RoleConverter());
+registry.registerConverters(new CompanyConverter());
+```
+2. Create service to make conversions (or you can make simple singleton object):
+```java
+final ObjectConverterService converterService = new ObjectConverterServiceImpl();
+```
+3. Convert User entity to UserDTO object.
+```java
+final User user = createUser(); // Some method which allows to create POJO.
+final UserDTO userDTO = converterService.convert(UserDTO.class, user);
+```
+
+### Spring configuration
+
+Choose the most appropriate way for you:
+
+* Configure application context using Java code
+* Use XML file to configure context
+
+#### Java based configuration
 
 You need to configure 2 beans:
 * `ObjectConverterService` which you will use to convert objects
@@ -97,23 +137,20 @@ You need to configure 2 beans:
 ```java
 @Configuration
 public class AppContext {
-
     @Bean
     public ObjectConverterService objectConverterService() {
         return new ObjectConverterServiceImpl();
     }
-
     @Bean
     public ObjectConverterBeanPostProcessor objectConverterBeanPostProcessor() {
         return new ObjectConverterBeanPostProcessor(objectConverterService());
     }
-
 }
 ```
 
 You also need to define converter beans in the `AppContext` or using `@ComponentScan` annotation.
 
-### XML Schema-based configuration
+#### XML Schema-based configuration
 
 You still need to configure the same 2 beans:
 
@@ -130,14 +167,13 @@ You still need to configure the same 2 beans:
 
     <!-- Bean post processor to register converters  -->
     <bean class="com.github.vbauer.houdini.processor.ObjectConverterBeanPostProcessor" />
-
 </beans>
 ```
 
 
 ## Conversion API
 
-To make new converter, you need to create a new Spring bean (or use an existing one) and mark this bean as converter using `@ObjectConverter` annotation.
+To make new converter, you need to create a new class (or use an existing one) and mark this bean as converter using `@ObjectConverter` annotation.
 
 It is possible to add this annotation on:
 * **Bean class** - all public methods from this class will be registered as converters.
@@ -159,7 +195,6 @@ That's all!
 This tiny example shows the power of Houdini: one class, two converters, re-usable logic, no one line of excessive code.
 
 ```java
-@Component
 @ObjectConverter
 public class UserConverter {
 
@@ -177,8 +212,7 @@ public class UserConverter {
         }
 
         return userDTO;
-    }
-
+    
 }
 ```
 
