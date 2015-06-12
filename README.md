@@ -82,7 +82,6 @@ repositories {
         url "https://jitpack.io"
     }
 }
-
 dependencies {
     compile 'com.github.vbauer:houdini:1.2.0'
 }
@@ -91,9 +90,9 @@ dependencies {
 ### Leiningen
 ```clojure
 :repositories [["jitpack.io" "https://jitpack.io"]]
-
 :dependencies [[com.github.vbauer/houdini "1.2.0"]]
 ```
+
 
 ## Configuration
 
@@ -105,7 +104,7 @@ It can be used with pure Java or Android projects.
 How to configure Houdini with pure Java:
 
 ```java
-// Registry all necessary converters:
+// Create registry service to store converters:
 final ObjectConverterRegistry registry = new ObjectConverterRegistryImpl();
 
 // After that you can specify all needed converters:
@@ -113,13 +112,18 @@ final ObjectConverterRegistry registry = new ObjectConverterRegistryImpl();
 // registry.registerConverters(new RoleConverter());
 // registry.registerConverters(new CompanyConverter());
 
-// Create service to make conversions (or you can make simple singleton object):
+// Create service which makes conversions (it could be a simple singleton object):
+final ObjectConverterService converterService = new ObjectConverterServiceImpl(registry);
+```
+
+You can also use default registry with `ObjectConverterService`, *1LOC*:
+```java
 final ObjectConverterService converterService = new ObjectConverterServiceImpl();
 ```
 
 ### Spring configuration
 
-Choose the most appropriate way for you:
+**Houdini** has a good integration with Spring framework. Just choose the most appropriate way how to configure it:
 
 * Configure application context using Java code
 * Use XML file to configure context
@@ -191,6 +195,7 @@ That's all!
 This tiny example shows the power of Houdini: one class, two converters, re-usable logic, no one line of excessive code.
 
 ```java
+// For integration with Spring also use @Component annotation.
 @ObjectConverter
 public class UserConverter {
 
