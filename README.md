@@ -130,7 +130,7 @@ You can also use default registry object with `ObjectConverterService`, *1LOC*:
 final ObjectConverterService converterService = new ObjectConverterServiceImpl();
 ```
 
-### Guice configuration
+### Guice / RoboGuice configuration
 
 **Houdini** contains the specific Guice module to support converters (`com.github.vbauer.houdini.ext.guice.ObjectConverterModule`):
 
