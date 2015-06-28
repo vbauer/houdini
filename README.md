@@ -173,7 +173,7 @@ You still need to configure the same 2 beans:
     <bean class="com.github.vbauer.houdini.service.ObjectConverterServiceImpl" />
 
     <!-- Bean post processor to register converters  -->
-    <bean class="com.github.vbauer.houdini.processor.ObjectConverterBeanPostProcessor" />
+    <bean class="com.github.vbauer.houdini.ext.spring.ObjectConverterBeanPostProcessor" />
 </beans>
 ```
 

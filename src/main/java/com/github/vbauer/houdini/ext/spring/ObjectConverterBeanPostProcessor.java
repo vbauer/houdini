@@ -1,4 +1,4 @@
-package com.github.vbauer.houdini.processor;
+package com.github.vbauer.houdini.ext.spring;
 
 import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.service.ObjectConverterService;

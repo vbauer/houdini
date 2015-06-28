@@ -1,15 +1,15 @@
-package com.github.vbauer.houdini.service;
+package com.github.vbauer.houdini.core;
 
 import com.github.vbauer.houdini.converter.UserConverter;
-import com.github.vbauer.houdini.core.BasicSpringTest;
 import com.github.vbauer.houdini.exception.DuplicatedObjectConverterException;
 import com.github.vbauer.houdini.exception.MissedObjectConverterException;
 import com.github.vbauer.houdini.model.User;
 import com.github.vbauer.houdini.model.UserDTO;
+import com.github.vbauer.houdini.service.ObjectConverterRegistry;
+import com.github.vbauer.houdini.service.ObjectConverterService;
 import com.github.vbauer.houdini.service.impl.ObjectConverterServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,16 +19,15 @@ import java.util.Set;
  * @author Vladislav Bauer
  */
 
-@SuppressWarnings("SpringJavaAutowiringInspection")
-public class ObjectConverterServiceTest extends BasicSpringTest {
+public abstract class BasicIoCTest {
 
     private static final int ID = 1;
     private static final String LOGIN = "vbauer";
     private static final String PASSWORD = "password";
 
 
-    @Autowired
-    private UserConverter userConverter;
+    protected ObjectConverterService converterService;
+    protected UserConverter userConverter;
 
 
     @Test
@@ -113,8 +112,9 @@ public class ObjectConverterServiceTest extends BasicSpringTest {
     }
 
     /*
-     * Helper methods.
+     * Internal API.
      */
+
 
     private void checkUserDTO(final UserDTO userDTO, final boolean hasPassword) {
         Assert.assertEquals(ID, userDTO.getId());
@@ -129,9 +129,7 @@ public class ObjectConverterServiceTest extends BasicSpringTest {
 
     private User createUser() {
         return new User()
-            .setId(ID)
-            .setLogin(LOGIN)
-            .setPassword(PASSWORD);
+            .setId(ID).setLogin(LOGIN).setPassword(PASSWORD);
     }
 
 }

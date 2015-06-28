@@ -52,6 +52,7 @@
         <java.version>1.6</java.version>
 
         <spring.version>4.1.6.RELEASE</spring.version>
+        <guice.version>4.0</guice.version>
         <hibernate.version>4.3.10.Final</hibernate.version>
 
         <junit.version>4.12</junit.version>
@@ -82,6 +83,14 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-beans</artifactId>
             <version>${spring.version}</version>
+            <scope>provided</scope>
+            <optional>true</optional>
+        </dependency>
+
+        <dependency>
+            <groupId>com.google.inject</groupId>
+            <artifactId>guice</artifactId>
+            <version>${guice.version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
