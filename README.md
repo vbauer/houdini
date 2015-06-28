@@ -24,9 +24,11 @@ See an *[Example](https://github.com/vbauer/houdini#example)* section for a quic
 * Direct usage of converters if necessary
 * Preventing unnecessary code
 * Compatible with:
-  * Java 6+ (SE/EE)
-  * Android platform
-  * [Spring](https://spring.io) 2.x+
+  * Java SE/EE
+  * [Spring Framework](https://spring.io)
+  * [Guice](https://github.com/google/guice)
+  * [RoboGuice](https://github.com/roboguice/roboguice)
+  * [Android Platform](http://developer.android.com)
 
 
 ## Comparison with other conversion systems
@@ -103,7 +105,7 @@ To work with Houdini's magic, you have 2 basic interfaces and corresponding impl
 
 **Reminder:**
 
-Houdini isn't dependent on third-party dependencies, but it has extra integration with Spring.
+Houdini isn't dependent on third-party dependencies, but it has extra integration with Spring and Guice frameworks.
 Of course, it can be used with pure Java or Android projects.
 
 ### Java / Android configuration
@@ -127,6 +129,17 @@ You can also use default registry object with `ObjectConverterService`, *1LOC*:
 ```java
 final ObjectConverterService converterService = new ObjectConverterServiceImpl();
 ```
+
+### Guice configuration
+
+**Houdini** contains the specific Guice module to support converters (`com.github.vbauer.houdini.ext.guice.ObjectConverterModule`):
+
+```java
+final Injector injector = Guice.createInjector(new ObjectConverterModule());
+```
+
+Now, all your beans will be checked for converters and all found converters will be registered.
+`ObjectConverterModule` module also defines 2 beans: `ObjectConverterRegistry` and `ObjectConverterService`.
 
 ### Spring configuration
 
