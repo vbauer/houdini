@@ -6,7 +6,7 @@
 
     <groupId>com.github.vbauer</groupId>
     <artifactId>houdini</artifactId>
-    <version>1.2.0</version>
+    <version>1.3.0</version>
 
     <description>Type conversion system for Spring</description>
     <url>https://github.com/vbauer/houdini</url>
