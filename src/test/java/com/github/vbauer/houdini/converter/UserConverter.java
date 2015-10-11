@@ -13,11 +13,7 @@ import org.springframework.stereotype.Component;
 @ObjectConverter
 public class UserConverter {
 
-    public UserDTO shortInfo(final User user) {
-        return fullInfo(user, false);
-    }
-
-    public UserDTO fullInfo(final User user, final Boolean full) {
+    public static UserDTO fullInfo(final User user, final Boolean full) {
         final UserDTO userDTO = new UserDTO()
             .setId(user.getId())
             .setLogin(user.getLogin());
@@ -27,6 +23,10 @@ public class UserConverter {
         }
 
         return userDTO;
+    }
+
+    public UserDTO shortInfo(final User user) {
+        return fullInfo(user, false);
     }
 
     public UserDTO badConverter(final User user, final Boolean full, final Boolean male) {

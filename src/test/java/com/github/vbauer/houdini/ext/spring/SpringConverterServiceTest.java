@@ -29,5 +29,4 @@ public class SpringConverterServiceTest extends BasicIoCTest {
         this.userConverter = context.getBean(UserConverter.class);
     }
 
-
 }
