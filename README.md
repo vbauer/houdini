@@ -74,7 +74,7 @@ Using Houdini we could put all needed converters into a single bean and use it l
 <dependency>
     <groupId>com.github.vbauer</groupId>
     <artifactId>houdini</artifactId>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
 </dependency>
 ```
 
@@ -86,14 +86,14 @@ repositories {
     }
 }
 dependencies {
-    compile 'com.github.vbauer:houdini:1.3.0'
+    compile 'com.github.vbauer:houdini:1.3.1'
 }
 ```
 
 ### Leiningen
 ```clojure
 :repositories [["jitpack.io" "https://jitpack.io"]]
-:dependencies [[com.github.vbauer/houdini "1.3.0"]]
+:dependencies [[com.github.vbauer/houdini "1.3.1"]]
 ```
 
 
