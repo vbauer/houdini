@@ -1,5 +1,11 @@
 
-# Houdini [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Houdini-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1979) [![Build Status](https://travis-ci.org/vbauer/houdini.svg)](https://travis-ci.org/vbauer/houdini) [![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg?branch=master)](https://coveralls.io/r/vbauer/houdini?branch=master) [![Maven](https://img.shields.io/github/tag/vbauer/houdini.svg?label=maven)](https://jitpack.io/#vbauer/houdini)
+# Houdini
+
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Houdini-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/1979) 
+[![Build Status](https://travis-ci.org/vbauer/houdini.svg)](https://travis-ci.org/vbauer/houdini) 
+[![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg?branch=master)](https://coveralls.io/r/vbauer/houdini?branch=master)
+[![Dependency Status](https://www.versioneye.com/user/projects/563952841d47d4001900000a/badge.svg?style=flat)](https://www.versioneye.com/user/projects/563952841d47d4001900000a)
+[![Maven](https://img.shields.io/github/tag/vbauer/houdini.svg?label=maven)](https://jitpack.io/#vbauer/houdini)
 
 > No performer should attempt to bite off red-hot iron unless he has a good set of teeth.
 
