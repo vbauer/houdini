@@ -53,7 +53,7 @@
 
         <spring.version>4.2.3.RELEASE</spring.version>
         <guice.version>4.0</guice.version>
-        <hibernate.version>5.0.3.Final</hibernate.version>
+        <hibernate.version>5.0.4.Final</hibernate.version>
 
         <junit.version>4.12</junit.version>
 
