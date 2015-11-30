@@ -1,13 +1,14 @@
 package com.github.vbauer.houdini.exception.base;
 
-import com.github.vbauer.houdini.util.CollectionUtils;
-
 import java.util.Arrays;
+
+import com.github.vbauer.houdini.util.CollectionUtils;
 
 /**
  * @author Vladislav Bauer
  */
 
+@SuppressWarnings("serial")
 public abstract class MethodObjectConverterException extends ObjectConverterException {
 
     private final Class<?>[] parameterTypes;
