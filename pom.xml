@@ -53,11 +53,10 @@
 
         <spring.version>4.2.4.RELEASE</spring.version>
         <guice.version>4.0</guice.version>
-        <hibernate.version>5.0.7.Final</hibernate.version>
 
         <junit.version>4.12</junit.version>
 
-        <maven.compiler.plugin.version>3.5</maven.compiler.plugin.version>
+        <maven.compiler.plugin.version>3.5.1</maven.compiler.plugin.version>
         <maven.source.plugin.version>2.4</maven.source.plugin.version>
         <maven.surefire.plugin.version>2.19.1</maven.surefire.plugin.version>
         <maven.checkstyle.plugin.version>2.17</maven.checkstyle.plugin.version>
@@ -91,14 +90,6 @@
             <groupId>com.google.inject</groupId>
             <artifactId>guice</artifactId>
             <version>${guice.version}</version>
-            <scope>provided</scope>
-            <optional>true</optional>
-        </dependency>
-
-        <dependency>
-            <groupId>org.hibernate</groupId>
-            <artifactId>hibernate-core</artifactId>
-            <version>${hibernate.version}</version>
             <scope>provided</scope>
             <optional>true</optional>
         </dependency>
