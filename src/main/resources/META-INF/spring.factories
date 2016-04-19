@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.github.vbauer.houdini.ext.spring.ObjectConverterConfiguration

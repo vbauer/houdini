@@ -1,6 +1,5 @@
-package com.github.vbauer.houdini.ext.spring.context;
+package com.github.vbauer.houdini.ext.spring;
 
-import com.github.vbauer.houdini.ext.spring.ObjectConverterConfiguration;
 import org.springframework.boot.autoconfigure.test.ImportAutoConfiguration;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
  */
 
 @Configuration
-@ComponentScan
+@ComponentScan(basePackages = "com.github.vbauer.houdini")
 @ImportAutoConfiguration(ObjectConverterConfiguration.class)
 public class SpringBootTestContext {
 }
