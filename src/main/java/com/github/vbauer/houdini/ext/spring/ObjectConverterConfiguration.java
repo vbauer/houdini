@@ -1,6 +1,8 @@
 package com.github.vbauer.houdini.ext.spring;
 
+import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.service.ObjectConverterService;
+import com.github.vbauer.houdini.service.impl.ObjectConverterRegistryImpl;
 import com.github.vbauer.houdini.service.impl.ObjectConverterServiceImpl;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.context.annotation.Bean;
@@ -15,8 +17,16 @@ public class ObjectConverterConfiguration {
 
     @Bean
     @ConditionalOnMissingBean
-    public ObjectConverterService objectConverterService() {
-        return new ObjectConverterServiceImpl();
+    public ObjectConverterRegistry objectConverterRegistry() {
+        return new ObjectConverterRegistryImpl();
+    }
+
+    @Bean
+    @ConditionalOnMissingBean
+    public ObjectConverterService objectConverterService(
+        final ObjectConverterRegistry objectConverterRegistry
+    ) {
+        return new ObjectConverterServiceImpl(objectConverterRegistry);
     }
 
     @Bean
