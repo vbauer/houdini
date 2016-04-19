@@ -18,6 +18,9 @@ public class DuplicatedObjectConverterException extends MethodObjectConverterExc
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return String.format(

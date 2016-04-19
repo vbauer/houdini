@@ -27,6 +27,9 @@ public final class ObjectConverterInfoValue<T> {
         return object;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format("[%s %s]", getMethod(), getObject());

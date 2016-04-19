@@ -27,11 +27,17 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public ObjectConverterRegistry getConverterRegistry() {
         return converterRegistry;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <RESULT> RESULT convert(final Class<RESULT> resultClass, final Object... sources) {
         final ObjectConverterRegistry registry = getConverterRegistry();
@@ -39,21 +45,33 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
         return processObject(converterInfo, sources);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <RESULT, SOURCE> Set<RESULT> convert(final Class<RESULT> resultClass, final Set<SOURCE> sources) {
         return processObjects(sources, resultClass, new HashSet<RESULT>());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <RESULT, SOURCE> List<RESULT> convert(final Class<RESULT> resultClass, final List<SOURCE> sources) {
         return processObjects(sources, resultClass, new ArrayList<RESULT>());
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <RESULT, SOURCE> Object convertToOneOrList(final Class<RESULT> resultClass, final List<SOURCE> sources) {
         return CollectionUtils.oneOrMany(processObjects(sources, resultClass, new ArrayList<RESULT>()));
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public <RESULT, SOURCE> Object convertToOneOrSet(final Class<RESULT> resultClass, final Set<SOURCE> sources) {
         return CollectionUtils.oneOrMany(processObjects(sources, resultClass, new HashSet<RESULT>()));

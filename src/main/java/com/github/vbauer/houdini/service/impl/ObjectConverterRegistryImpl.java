@@ -22,6 +22,9 @@ public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {
         new ConcurrentHashMap<ObjectConverterInfoKey<?>, ObjectConverterInfoValue<?>>();
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void registerConverters(final Object bean) {
         final Class<?> beanClass = ReflectionUtils.getClassWithoutProxies(bean);
@@ -36,8 +39,11 @@ public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {
         }
     }
 
-    @Override
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
+    @Override
     public  <RESULT> ObjectConverterInfoValue<RESULT> findConverter(
         final Class<RESULT> resultClass, final Object... sources
     ) {

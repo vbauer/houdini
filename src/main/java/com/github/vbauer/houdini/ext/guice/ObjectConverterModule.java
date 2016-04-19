@@ -30,6 +30,9 @@ public class ObjectConverterModule extends AbstractModule {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     protected void configure() {
         final ObjectConverterRegistry registry = new ObjectConverterRegistryImpl();

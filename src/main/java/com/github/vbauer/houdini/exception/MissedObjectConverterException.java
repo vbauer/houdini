@@ -18,6 +18,9 @@ public class MissedObjectConverterException extends MethodObjectConverterExcepti
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String getMessage() {
         return String.format(

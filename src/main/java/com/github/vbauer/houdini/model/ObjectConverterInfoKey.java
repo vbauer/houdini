@@ -30,11 +30,17 @@ public final class ObjectConverterInfoKey<RESULT> {
         return target;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int hashCode() {
         return Arrays.hashCode(new Object[]{CollectionUtils.size(getSources()), getTarget()});
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @SuppressWarnings("unchecked")
     @Override
     public boolean equals(final Object obj) {
@@ -46,6 +52,9 @@ public final class ObjectConverterInfoKey<RESULT> {
         return hasSameTarget(other) && hasSameSources(other);
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return String.format("[%s %s]", Arrays.toString(getSources()), getTarget());

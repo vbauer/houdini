@@ -111,10 +111,10 @@ public abstract class BasicIoCTest {
         checkUserDTO(userDTO, true);
     }
 
+
     /*
      * Internal API.
      */
-
 
     private void checkUserDTO(final UserDTO userDTO, final boolean hasPassword) {
         Assert.assertEquals(ID, userDTO.getId());
@@ -129,7 +129,9 @@ public abstract class BasicIoCTest {
 
     private User createUser() {
         return new User()
-            .setId(ID).setLogin(LOGIN).setPassword(PASSWORD);
+            .setId(ID)
+            .setLogin(LOGIN)
+            .setPassword(PASSWORD);
     }
 
 }

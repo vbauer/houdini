@@ -18,11 +18,17 @@ public class ObjectConverterBeanPostProcessor implements BeanPostProcessor {
     }
 
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object postProcessBeforeInitialization(final Object bean, final String beanName) {
         return bean;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public Object postProcessAfterInitialization(final Object bean, final String beanName) {
         final ObjectConverterRegistry registry = converterService.getConverterRegistry();

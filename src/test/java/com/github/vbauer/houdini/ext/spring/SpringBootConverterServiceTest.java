@@ -1,6 +1,6 @@
 package com.github.vbauer.houdini.ext.spring;
 
-import com.github.vbauer.houdini.ext.spring.context.SpringTestContext;
+import com.github.vbauer.houdini.ext.spring.context.SpringBootTestContext;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -10,7 +10,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 
 @SuppressWarnings("all")
-@ContextConfiguration(classes = SpringTestContext.class)
+@ContextConfiguration(classes = SpringBootTestContext.class)
 @RunWith(SpringJUnit4ClassRunner.class)
-public class SpringConverterServiceTest extends BasicSpringTest {
+public class SpringBootConverterServiceTest extends BasicSpringTest {
 }
