@@ -97,12 +97,6 @@ dependencies {
 }
 ```
 
-### Leiningen
-```clojure
-:repositories [["jitpack.io" "https://jitpack.io"]]
-:dependencies [[com.github.vbauer/houdini "1.3.1"]]
-```
-
 
 ## Configuration
 
