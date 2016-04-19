@@ -1,8 +1,14 @@
 package com.github.vbauer.houdini.model;
 
 import com.github.vbauer.houdini.core.BasicTest;
-import org.junit.Assert;
 import org.junit.Test;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.collection.IsArrayContainingInAnyOrder.arrayContainingInAnyOrder;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Vladislav Bauer
@@ -18,37 +24,40 @@ public class ModelTest extends BasicTest {
         final Class<?>[] sourceTypes1 = new Class<?>[] { String.class };
         final Class<?>[] sourceTypes2 = new Class<?>[] { Integer.class };
 
-        final ObjectConverterInfoKey<Integer> key1 = new ObjectConverterInfoKey<Integer>(returnType1, sourceTypes1);
+        final ObjectConverterInfoKey<Integer> key1 = new ObjectConverterInfoKey<>(returnType1, sourceTypes1);
 
-        Assert.assertArrayEquals(sourceTypes1, key1.getSources());
-        Assert.assertEquals(returnType1, key1.getTarget());
+        assertThat(key1.getSources(), arrayContainingInAnyOrder(sourceTypes1));
+        assertThat(key1.getTarget(), equalTo(returnType1));
 
-        Assert.assertTrue(key1.hashCode() != 0);
-        Assert.assertNotNull(key1.toString());
+        assertThat(key1.hashCode(), not(equalTo(0)));
+        assertThat(key1.toString(), notNullValue());
 
-        Assert.assertEquals(key1, new ObjectConverterInfoKey<Integer>(returnType1, sourceTypes1));
-        Assert.assertNotEquals(key1, new ObjectConverterInfoKey<Integer>(returnType1));
-        Assert.assertNotEquals(key1, new ObjectConverterInfoKey<String>(returnType2, sourceTypes1));
-        Assert.assertNotEquals(key1, new ObjectConverterInfoKey<Integer>(returnType1, sourceTypes2));
+        assertThat(new ObjectConverterInfoKey<>(returnType1, sourceTypes1), equalTo(key1));
+        assertThat(new ObjectConverterInfoKey<>(returnType1), not(equalTo(key1)));
+        assertThat(new ObjectConverterInfoKey<>(returnType1, sourceTypes2), not(equalTo(key1)));
 
-        Assert.assertEquals(
-            new ObjectConverterInfoKey<Integer>(returnType1),
-            new ObjectConverterInfoKey<Integer>(returnType1)
+        assertThat(
+            new ObjectConverterInfoKey<>(returnType2, sourceTypes1),
+            not(equalTo((ObjectConverterInfoKey) key1))
         );
 
-        Assert.assertNotEquals(key1, new Object());
+        assertThat(
+            new ObjectConverterInfoKey<>(returnType1),
+            equalTo(new ObjectConverterInfoKey<>(returnType1))
+        );
 
+        assertThat(key1, not(equalTo(new Object())));
     }
 
     @Test
     public void testObjectConverterInfoValue() {
         final Integer object = 1;
         final ObjectConverterInfoValue<Integer> value =
-            new ObjectConverterInfoValue<Integer>(null, object);
+            new ObjectConverterInfoValue<>(null, object);
 
-        Assert.assertEquals(object, value.getObject());
-        Assert.assertNull(value.getMethod());
-        Assert.assertNotNull(value.toString());
+        assertThat(value.getObject(), equalTo(object));
+        assertThat(value.getMethod(), nullValue());
+        assertThat(value.toString(), notNullValue());
     }
 
 }

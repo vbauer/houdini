@@ -6,9 +6,11 @@ import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.service.ObjectConverterService;
 import com.google.inject.Guice;
 import com.google.inject.Injector;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+
+import static org.hamcrest.Matchers.notNullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Vladislav Bauer
@@ -29,8 +31,8 @@ public class GuiceConverterServiceTest extends BasicIoCTest {
 
     @Test
     public void testDefinedServices() {
-        Assert.assertNotNull(injector.getInstance(ObjectConverterService.class));
-        Assert.assertNotNull(injector.getInstance(ObjectConverterRegistry.class));
+        assertThat(injector.getInstance(ObjectConverterService.class), notNullValue());
+        assertThat(injector.getInstance(ObjectConverterRegistry.class), notNullValue());
     }
 
 }

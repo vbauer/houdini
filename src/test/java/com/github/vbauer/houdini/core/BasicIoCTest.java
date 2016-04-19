@@ -8,12 +8,16 @@ import com.github.vbauer.houdini.model.UserDTO;
 import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.service.ObjectConverterService;
 import com.github.vbauer.houdini.service.impl.ObjectConverterServiceImpl;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Vladislav Bauer
@@ -57,7 +61,7 @@ public abstract class BasicIoCTest {
         final Set<User> users = Collections.singleton(createUser());
         final Set<UserDTO> userDTOs = converterService.convert(UserDTO.class, users);
 
-        Assert.assertEquals(1, userDTOs.size());
+        assertThat(userDTOs, hasSize(1));
         checkUserDTO(userDTOs.iterator().next(), false);
     }
 
@@ -66,7 +70,7 @@ public abstract class BasicIoCTest {
         final List<User> users = Collections.singletonList(createUser());
         final List<UserDTO> userDTOs = converterService.convert(UserDTO.class, users);
 
-        Assert.assertEquals(1, userDTOs.size());
+        assertThat(userDTOs, hasSize(1));
         checkUserDTO(userDTOs.iterator().next(), false);
     }
 
@@ -117,13 +121,13 @@ public abstract class BasicIoCTest {
      */
 
     private void checkUserDTO(final UserDTO userDTO, final boolean hasPassword) {
-        Assert.assertEquals(ID, userDTO.getId());
-        Assert.assertEquals(LOGIN, userDTO.getLogin());
+        assertThat(userDTO.getId(), equalTo(ID));
+        assertThat(userDTO.getLogin(), equalTo(LOGIN));
 
         if (hasPassword) {
-            Assert.assertEquals(PASSWORD, userDTO.getPassword());
+            assertThat(userDTO.getPassword(), equalTo(PASSWORD));
         } else {
-            Assert.assertNull(userDTO.getPassword());
+            assertThat(userDTO.getPassword(), nullValue());
         }
     }
 

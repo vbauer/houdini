@@ -1,11 +1,15 @@
 package com.github.vbauer.houdini.util;
 
 import com.github.vbauer.houdini.core.BasicTest;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.UndeclaredThrowableException;
+
+import static org.hamcrest.Matchers.arrayWithSize;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 /**
  * @author Vladislav Bauer 
@@ -15,15 +19,15 @@ public class ReflectionUtilsTest extends BasicTest {
 
     @Test
     public void testGetClassWithoutProxies() {
-        Assert.assertNull(ReflectionUtils.getClassWithoutProxies(null));
-        Assert.assertEquals(Object.class, ReflectionUtils.getClassWithoutProxies(new Object()));
-        Assert.assertEquals(String.class, ReflectionUtils.<String>getClassWithoutProxies("test"));
+        assertThat(ReflectionUtils.getClassWithoutProxies(null), nullValue());
+        assertThat(ReflectionUtils.getClassWithoutProxies(new Object()), equalTo(Object.class));
+        assertThat(ReflectionUtils.<String>getClassWithoutProxies("test"), equalTo(String.class));
     }
 
     @Test
     public void testGetClassesWithoutProxies() {
-        Assert.assertEquals(0, ReflectionUtils.getClassesWithoutProxies(null).length);
-        Assert.assertEquals(0, ReflectionUtils.getClassesWithoutProxies(new Object[]{}).length);
+        assertThat(ReflectionUtils.getClassesWithoutProxies(null), arrayWithSize(0));
+        assertThat(ReflectionUtils.getClassesWithoutProxies(new Object[]{}), arrayWithSize(0));
     }
 
     @Test
