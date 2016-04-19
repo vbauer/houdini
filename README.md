@@ -81,7 +81,7 @@ Using Houdini we could put all needed converters into a single bean and use it l
 <dependency>
     <groupId>com.github.vbauer</groupId>
     <artifactId>houdini</artifactId>
-    <version>1.3.1</version>
+    <version>1.4.0</version>
 </dependency>
 ```
 
@@ -93,7 +93,7 @@ repositories {
     }
 }
 dependencies {
-    compile 'com.github.vbauer:houdini:1.3.1'
+    compile 'com.github.vbauer:houdini:1.4.0'
 }
 ```
 
