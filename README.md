@@ -32,6 +32,7 @@ See an *[Example](https://github.com/vbauer/houdini#example)* section for a quic
 * Compatible with:
   * Java SE/EE
   * [Spring Framework](https://spring.io)
+    * [Spring Boot](http://projects.spring.io/spring-boot/)
   * [Guice](https://github.com/google/guice)
   * [RoboGuice](https://github.com/roboguice/roboguice)
   * [Android Platform](http://developer.android.com)
@@ -195,6 +196,13 @@ You still need to configure the same 2 beans:
     <bean class="com.github.vbauer.houdini.ext.spring.ObjectConverterBeanPostProcessor" />
 </beans>
 ```
+
+#### Spring Boot support
+
+Houdini has out of the box integration with Spring Boot. You do not need to define `ObjectConverterService` and `ObjectConverterBeanPostProcessor` in your application context.
+Spring Boot [auto-configuration](https://docs.spring.io/spring-boot/docs/current/reference/html/using-boot-auto-configuration.html) attempts to automatically configure your Spring application based on the jar dependencies that you have added.
+
+See [ObjectConverterConfiguration](src/main/java/com/github/vbauer/houdini/ext/spring/ObjectConverterConfiguration.java) for more details.
 
 
 ## Conversion API
