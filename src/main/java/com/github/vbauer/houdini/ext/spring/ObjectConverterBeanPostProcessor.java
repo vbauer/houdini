@@ -5,6 +5,11 @@ import com.github.vbauer.houdini.service.ObjectConverterService;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 
 /**
+ * Spring {@link BeanPostProcessor} to collect object converters.
+ *
+ * It finds all corresponding class and methods with {@link com.github.vbauer.houdini.annotation.ObjectConverter}
+ * annotation and register it in {@link ObjectConverterRegistry}.
+ *
  * @author Vladislav Bauer
  */
 

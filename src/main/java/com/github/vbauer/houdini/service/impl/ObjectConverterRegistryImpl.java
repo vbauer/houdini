@@ -13,13 +13,15 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 /**
+ * {@link ObjectConverterRegistry}.
+ *
  * @author Vladislav Bauer
  */
 
 public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {
 
     private final ConcurrentMap<ObjectConverterInfoKey<?>, ObjectConverterInfoValue<?>> converters =
-        new ConcurrentHashMap<ObjectConverterInfoKey<?>, ObjectConverterInfoValue<?>>();
+        new ConcurrentHashMap<>();
 
 
     /**
@@ -48,7 +50,7 @@ public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {
         final Class<RESULT> resultClass, final Object... sources
     ) {
         final Class<?>[] sourceClasses = ReflectionUtils.getClassesWithoutProxies(sources);
-        final ObjectConverterInfoKey<RESULT> key = new ObjectConverterInfoKey<RESULT>(resultClass, sourceClasses);
+        final ObjectConverterInfoKey<RESULT> key = new ObjectConverterInfoKey<>(resultClass, sourceClasses);
         final ObjectConverterInfoValue<RESULT> value = (ObjectConverterInfoValue<RESULT>) converters.get(key);
 
         if (value == null) {
@@ -78,7 +80,7 @@ public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {
         final Class<?>[] parameterTypes = method.getParameterTypes();
 
         final ObjectConverterInfoKey key = new ObjectConverterInfoKey(returnType, parameterTypes);
-        final ObjectConverterInfoValue<Object> value = new ObjectConverterInfoValue<Object>(method, bean);
+        final ObjectConverterInfoValue<Object> value = new ObjectConverterInfoValue<>(method, bean);
         final ObjectConverterInfoValue<?> result = converters.putIfAbsent(key, value);
 
         if (result != null) {

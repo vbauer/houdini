@@ -1,8 +1,8 @@
 package com.github.vbauer.houdini.exception.base;
 
-import java.util.Arrays;
-
 import com.github.vbauer.houdini.util.CollectionUtils;
+
+import java.util.Arrays;
 
 /**
  * @author Vladislav Bauer
@@ -21,10 +21,20 @@ public abstract class MethodObjectConverterException extends ObjectConverterExce
     }
 
 
+    /**
+     * Retrieve a copy of the input parameter types.
+     *
+     * @return input parameter types
+     */
     public Class<?>[] getParameterTypes() {
         return Arrays.copyOf(parameterTypes, CollectionUtils.size(parameterTypes));
     }
 
+    /**
+     * Retrieve an output / return type.
+     *
+     * @return return type
+     */
     public Class<?> getReturnType() {
         return returnType;
     }

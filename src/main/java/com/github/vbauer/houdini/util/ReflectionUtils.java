@@ -1,10 +1,14 @@
 package com.github.vbauer.houdini.util;
 
+import com.google.common.annotations.VisibleForTesting;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 
 /**
+ * Util-class which provides additional operation to work with reflection mechanism.
+ *
  * @author Vladislav Bauer 
  */
 
@@ -15,8 +19,16 @@ public final class ReflectionUtils {
     }
 
 
+    /**
+     * Get class without possible proxies. It works only with Hibernate library.
+     * Otherwise it returns the {@link Object#getClass()}.
+     *
+     * @param object object
+     * @param <T> type of the result object
+     * @return type of the object without some proxy wrappers
+     */
     @SuppressWarnings("unchecked")
-    public static <T> Class<T> getClassWithoutProxies(final Object object) {
+    public static <T> Class<T> getClassWithoutProxies(final T object) {
         try {
             // XXX: Use HibernateProxyHelper to un-proxy object and get the original class.
             final Class<?> clazz = Class.forName("org.hibernate.proxy.HibernateProxyHelper");
@@ -34,6 +46,12 @@ public final class ReflectionUtils {
         }
     }
 
+    /**
+     * Get array of classes which represents un-proxy classes of the given objects.
+     *
+     * @param sources array with objects
+     * @return un-proxy classes
+     */
     public static Class<?>[] getClassesWithoutProxies(final Object[] sources) {
         final int size = sources == null ? 0 : sources.length;
         final Class<?>[] sourceClasses = new Class<?>[size];
@@ -46,6 +64,11 @@ public final class ReflectionUtils {
         return sourceClasses;
     }
 
+    /**
+     * Convert exception to the {@link RuntimeException}.
+     *
+     * @param ex exception
+     */
     public static void handleReflectionException(final Exception ex) {
         if (ex instanceof NoSuchMethodException) {
             throw new IllegalStateException("Method not found: " + ex.getMessage());
@@ -64,12 +87,14 @@ public final class ReflectionUtils {
         }
     }
 
-    public static void handleInvocationTargetException(final InvocationTargetException ex) {
+    @VisibleForTesting
+    static void handleInvocationTargetException(final InvocationTargetException ex) {
         final Throwable targetException = ex.getTargetException();
         rethrowRuntimeException(targetException);
     }
 
-    public static void rethrowRuntimeException(final Throwable ex) {
+    @VisibleForTesting
+    static void rethrowRuntimeException(final Throwable ex) {
         if (ex instanceof RuntimeException) {
             throw (RuntimeException) ex;
         } else if (ex instanceof Error) {

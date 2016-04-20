@@ -4,8 +4,9 @@ import com.github.vbauer.houdini.util.CollectionUtils;
 
 import java.util.Arrays;
 
-
 /**
+ * Class represents key information about input and output parameters for object converter.
+ *
  * @param <RESULT> class type
  * @author Vladislav Bauer
  */
@@ -22,10 +23,20 @@ public final class ObjectConverterInfoKey<RESULT> {
     }
 
 
+    /**
+     * Get array with input parameter classes.
+     *
+     * @return source classes
+     */
     public Class<?>[] getSources() {
         return sources;
     }
 
+    /**
+     * Get target / output class.
+     *
+     * @return target class
+     */
     public Class<RESULT> getTarget() {
         return target;
     }

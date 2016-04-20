@@ -13,6 +13,8 @@ import com.google.inject.spi.TypeEncounter;
 import com.google.inject.spi.TypeListener;
 
 /**
+ * Guice module to work with Houdini.
+ *
  * @author Vladislav Bauer
  */
 
@@ -40,6 +42,7 @@ public class ObjectConverterModule extends AbstractModule {
 
         bind(ObjectConverterRegistry.class).toInstance(registry);
         bind(ObjectConverterService.class).toInstance(converter);
+
         bindListener(typeMatcher, createTypeListener(registry));
     }
 

@@ -21,7 +21,7 @@ public class ReflectionUtilsTest extends BasicTest {
     public void testGetClassWithoutProxies() {
         assertThat(ReflectionUtils.getClassWithoutProxies(null), nullValue());
         assertThat(ReflectionUtils.getClassWithoutProxies(new Object()), equalTo(Object.class));
-        assertThat(ReflectionUtils.<String>getClassWithoutProxies("test"), equalTo(String.class));
+        assertThat(ReflectionUtils.getClassWithoutProxies("test"), equalTo(String.class));
     }
 
     @Test
