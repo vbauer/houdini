@@ -241,7 +241,8 @@ public class UserConverter {
         }
 
         return userDTO;
-    
+    }
+
 }
 ```
 
