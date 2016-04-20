@@ -6,6 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/vbauer/houdini/badge.svg?branch=master)](https://coveralls.io/r/vbauer/houdini?branch=master)
 [![Dependency Status](https://www.versioneye.com/user/projects/563952841d47d4001900000a/badge.svg?style=flat)](https://www.versioneye.com/user/projects/563952841d47d4001900000a)
 [![Maven](https://img.shields.io/github/tag/vbauer/houdini.svg?label=maven)](https://jitpack.io/#vbauer/houdini)
+[![Codacy Badge](https://api.codacy.com/project/badge/grade/ab45dbcdf6474b98aaeccb15aab4980d)](https://www.codacy.com/app/bauer-vlad/houdini)
 
 > No performer should attempt to bite off red-hot iron unless he has a good set of teeth.
 
