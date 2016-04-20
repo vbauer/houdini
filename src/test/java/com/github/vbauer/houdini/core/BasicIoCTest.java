@@ -8,6 +8,8 @@ import com.github.vbauer.houdini.model.UserDTO;
 import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.service.ObjectConverterService;
 import com.github.vbauer.houdini.service.impl.ObjectConverterServiceImpl;
+import org.hamcrest.Matchers;
+import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collections;
@@ -16,6 +18,7 @@ import java.util.Set;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
@@ -39,7 +42,7 @@ public abstract class BasicIoCTest {
         final User user = createUser();
         final UserDTO userDTO = converterService.convert(UserDTO.class, user);
 
-        checkUserDTO(userDTO, false);
+        assertThat(checkUserDTO(userDTO, false), notNullValue());
     }
 
     @Test
@@ -47,7 +50,7 @@ public abstract class BasicIoCTest {
         final User user = createUser();
         final UserDTO userDTO = converterService.convert(UserDTO.class, user, true);
 
-        checkUserDTO(userDTO, true);
+        assertThat(checkUserDTO(userDTO, true), notNullValue());
     }
 
     @Test(expected = UnsupportedOperationException.class)
@@ -62,7 +65,7 @@ public abstract class BasicIoCTest {
         final Set<UserDTO> userDTOs = converterService.convert(UserDTO.class, users);
 
         assertThat(userDTOs, hasSize(1));
-        checkUserDTO(userDTOs.iterator().next(), false);
+        assertThat(checkUserDTO(userDTOs.iterator().next(), false), notNullValue());
     }
 
     @Test
@@ -71,21 +74,23 @@ public abstract class BasicIoCTest {
         final List<UserDTO> userDTOs = converterService.convert(UserDTO.class, users);
 
         assertThat(userDTOs, hasSize(1));
-        checkUserDTO(userDTOs.iterator().next(), false);
+        assertThat(checkUserDTO(userDTOs.iterator().next(), false), notNullValue());
     }
 
     @Test
     public void testShortUserInfoOneOrSet() {
         final Set<User> users = Collections.singleton(createUser());
         final UserDTO userDTO = (UserDTO) converterService.convertToOneOrSet(UserDTO.class, users);
-        checkUserDTO(userDTO, false);
+
+        assertThat(checkUserDTO(userDTO, false), notNullValue());
     }
 
     @Test
     public void testShortUserInfoOneOrList() {
         final List<User> users = Collections.singletonList(createUser());
         final UserDTO userDTO = (UserDTO) converterService.convertToOneOrList(UserDTO.class, users);
-        checkUserDTO(userDTO, false);
+
+        assertThat(checkUserDTO(userDTO, false), notNullValue());
     }
 
     @Test(expected = MissedObjectConverterException.class)
@@ -105,14 +110,14 @@ public abstract class BasicIoCTest {
     }
 
     @Test
-    public void testWithoutSpring() {
+    public void testWithoutIoC() {
         final ObjectConverterService converterService = new ObjectConverterServiceImpl();
         final ObjectConverterRegistry registry = converterService.getConverterRegistry();
         registry.registerConverters(new UserConverter());
 
         final User user = createUser();
         final UserDTO userDTO = converterService.convert(UserDTO.class, user, true);
-        checkUserDTO(userDTO, true);
+        assertThat(checkUserDTO(userDTO, true), notNullValue());
     }
 
 
@@ -120,7 +125,7 @@ public abstract class BasicIoCTest {
      * Internal API.
      */
 
-    private void checkUserDTO(final UserDTO userDTO, final boolean hasPassword) {
+    private UserDTO checkUserDTO(final UserDTO userDTO, final boolean hasPassword) {
         assertThat(userDTO.getId(), equalTo(ID));
         assertThat(userDTO.getLogin(), equalTo(LOGIN));
 
@@ -129,6 +134,8 @@ public abstract class BasicIoCTest {
         } else {
             assertThat(userDTO.getPassword(), nullValue());
         }
+
+        return userDTO;
     }
 
     private User createUser() {

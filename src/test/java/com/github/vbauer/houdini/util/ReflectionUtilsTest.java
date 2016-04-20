@@ -8,6 +8,7 @@ import java.lang.reflect.UndeclaredThrowableException;
 
 import static org.hamcrest.Matchers.arrayWithSize;
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
@@ -32,7 +33,7 @@ public class ReflectionUtilsTest extends BasicTest {
 
     @Test
     public void testConstructorContract() throws Exception {
-        checkUtilConstructorContract(ReflectionUtils.class);
+        assertThat(checkUtilConstructorContract(ReflectionUtils.class), notNullValue());
     }
 
     @Test(expected = IllegalStateException.class)

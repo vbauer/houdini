@@ -7,17 +7,17 @@ import java.util.Arrays;
 /**
  * Class represents key information about input and output parameters for object converter.
  *
- * @param <RESULT> class type
+ * @param <R> class type
  * @author Vladislav Bauer
  */
 
-public final class ObjectConverterInfoKey<RESULT> {
+public final class ObjectConverterInfoKey<R> {
 
     private final Class<?>[] sources;
-    private final Class<RESULT> target;
+    private final Class<R> target;
 
 
-    public ObjectConverterInfoKey(final Class<RESULT> target, final Class<?>... sources) {
+    public ObjectConverterInfoKey(final Class<R> target, final Class<?>... sources) {
         this.target = target;
         this.sources = sources;
     }
@@ -28,6 +28,7 @@ public final class ObjectConverterInfoKey<RESULT> {
      *
      * @return source classes
      */
+    @SuppressWarnings("all")
     public Class<?>[] getSources() {
         return sources;
     }
@@ -37,7 +38,8 @@ public final class ObjectConverterInfoKey<RESULT> {
      *
      * @return target class
      */
-    public Class<RESULT> getTarget() {
+    @SuppressWarnings("all")
+    public Class<R> getTarget() {
         return target;
     }
 
@@ -59,7 +61,7 @@ public final class ObjectConverterInfoKey<RESULT> {
             return false;
         }
 
-        final ObjectConverterInfoKey<RESULT> other = (ObjectConverterInfoKey<RESULT>) obj;
+        final ObjectConverterInfoKey<R> other = (ObjectConverterInfoKey<R>) obj;
         return hasSameTarget(other) && hasSameSources(other);
     }
 
@@ -76,11 +78,11 @@ public final class ObjectConverterInfoKey<RESULT> {
      * Internal API.
      */
 
-    private boolean hasSameTarget(final ObjectConverterInfoKey<RESULT> other) {
+    private boolean hasSameTarget(final ObjectConverterInfoKey<R> other) {
         return getTarget() == other.getTarget();
     }
 
-    private boolean hasSameSources(final ObjectConverterInfoKey<RESULT> other) {
+    private boolean hasSameSources(final ObjectConverterInfoKey<R> other) {
         final Class<?>[] selfSources = getSources();
         final Class<?>[] otherSources = other.getSources();
 

@@ -32,7 +32,7 @@ public final class ObjectConverterInfoValue<T> {
 
     /**
      * Get object that contains method for conversion.
-     * @return root object
+     * @return root objectF
      */
     public T getObject() {
         return object;

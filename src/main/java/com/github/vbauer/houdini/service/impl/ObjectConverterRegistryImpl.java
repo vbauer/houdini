@@ -46,12 +46,12 @@ public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public  <RESULT> ObjectConverterInfoValue<RESULT> findConverter(
-        final Class<RESULT> resultClass, final Object... sources
+    public  <R> ObjectConverterInfoValue<R> findConverter(
+        final Class<R> resultClass, final Object... sources
     ) {
         final Class<?>[] sourceClasses = ReflectionUtils.getClassesWithoutProxies(sources);
-        final ObjectConverterInfoKey<RESULT> key = new ObjectConverterInfoKey<>(resultClass, sourceClasses);
-        final ObjectConverterInfoValue<RESULT> value = (ObjectConverterInfoValue<RESULT>) converters.get(key);
+        final ObjectConverterInfoKey<R> key = new ObjectConverterInfoKey<>(resultClass, sourceClasses);
+        final ObjectConverterInfoValue<R> value = (ObjectConverterInfoValue<R>) converters.get(key);
 
         if (value == null) {
             throw new MissedObjectConverterException(resultClass, sourceClasses);

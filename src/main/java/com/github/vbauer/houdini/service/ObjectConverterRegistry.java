@@ -22,11 +22,9 @@ public interface ObjectConverterRegistry {
      *
      * @param resultClass class of result/output parameter
      * @param sources array with classes for input parameters
-     * @param <RESULT> type of the result class
+     * @param <R> type of the result class
      * @return information about available converter or MissedObjectConverterException otherwise
      */
-    <RESULT> ObjectConverterInfoValue<RESULT> findConverter(
-        Class<RESULT> resultClass, Object... sources
-    );
+    <R> ObjectConverterInfoValue<R> findConverter(Class<R> resultClass, Object... sources);
 
 }

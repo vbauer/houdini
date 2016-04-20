@@ -23,30 +23,32 @@ public interface ObjectConverterService {
      *
      * @param resultClass result class
      * @param sources array with input parameters for the corresponding converter
-     * @param <RESULT> type of the result class
+     * @param <R> type of the result class
      * @return converted object
      */
-    <RESULT> RESULT convert(Class<RESULT> resultClass, Object... sources);
+    <R> R convert(Class<R> resultClass, Object... sources);
 
     /**
      * Convert a set of objects to the set of objects with the different type.
      *
      * @param resultClass result class
      * @param sources set with input objects
-     * @param <RESULT> type of the result class
+     * @param <R> type of the result class
+     * @param <S> type of the input parameters
      * @return set of converted objects
      */
-    <RESULT, SOURCE> Set<RESULT> convert(Class<RESULT> resultClass, Set<SOURCE> sources);
+    <R, S> Set<R> convert(Class<R> resultClass, Set<S> sources);
 
     /**
      * Convert a list of objects to the list of objects with the different type.
      *
      * @param resultClass result class
      * @param sources list with input objects
-     * @param <RESULT> type of the result class
+     * @param <R> type of the result class
+     * @param <S> type of the input parameters
      * @return list of converted objects
      */
-    <RESULT, SOURCE> List<RESULT> convert(Class<RESULT> resultClass, List<SOURCE> sources);
+    <R, S> List<R> convert(Class<R> resultClass, List<S> sources);
 
     /**
      * Convert a set of objects to the set of objects with the different type.
@@ -54,10 +56,11 @@ public interface ObjectConverterService {
      *
      * @param resultClass result class
      * @param sources set with input objects
-     * @param <RESULT> type of the result class
+     * @param <R> type of the result class
+     * @param <S> type of the input parameters
      * @return set of objects or single element
      */
-    <RESULT, SOURCE> Object convertToOneOrSet(Class<RESULT> resultClass, Set<SOURCE> sources);
+    <R, S> Object convertToOneOrSet(Class<R> resultClass, Set<S> sources);
 
     /**
      * Convert a list of objects to the list of objects with the different type.
@@ -65,9 +68,10 @@ public interface ObjectConverterService {
      *
      * @param resultClass result class
      * @param sources list with input objects
-     * @param <RESULT> type of the result class
+     * @param <R> type of the result class
+     * @param <S> type of the input parameters
      * @return list of converted objects or single element
      */
-    <RESULT, SOURCE> Object convertToOneOrList(Class<RESULT> resultClass, List<SOURCE> sources);
+    <R, S> Object convertToOneOrList(Class<R> resultClass, List<S> sources);
 
 }
