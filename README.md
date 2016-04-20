@@ -260,6 +260,15 @@ final UserDTO fullUserDTO = converterService.convert(UserDTO.class, user, true);
 ```
 
 
+## Development
+
+To build project in strict mode with tests, you can run:
+
+```bash
+mvn -P strict clean package
+```
+
+
 ## Might also like
 
 * [jconditions](https://github.com/vbauer/jconditions) - Extra conditional annotations for JUnit.
