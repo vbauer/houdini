@@ -3,6 +3,7 @@ package com.github.vbauer.houdini.model;
 import com.github.vbauer.houdini.util.CollectionUtils;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * Class represents key information about input and output parameters for object converter.
@@ -79,7 +80,7 @@ public final class ObjectConverterInfoKey<R> {
      */
 
     private boolean hasSameTarget(final ObjectConverterInfoKey<R> other) {
-        return getTarget() == other.getTarget();
+        return Objects.equals(getTarget(), other.getTarget());
     }
 
     private boolean hasSameSources(final ObjectConverterInfoKey<R> other) {
@@ -99,7 +100,9 @@ public final class ObjectConverterInfoKey<R> {
             final Class<?> selfClass = selfSources[i];
             final Class<?> otherClass = otherSources[i];
 
-            if (selfClass != Object.class && otherClass != Object.class && selfClass != otherClass) {
+            if (!Objects.equals(selfClass, otherClass)
+                && !Objects.equals(selfClass, Object.class)
+                && !Objects.equals(otherClass, Object.class)) {
                 return false;
             }
         }

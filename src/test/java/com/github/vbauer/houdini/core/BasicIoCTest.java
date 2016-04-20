@@ -8,8 +8,6 @@ import com.github.vbauer.houdini.model.UserDTO;
 import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.service.ObjectConverterService;
 import com.github.vbauer.houdini.service.impl.ObjectConverterServiceImpl;
-import org.hamcrest.Matchers;
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collections;
