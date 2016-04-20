@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
  * @author Vladislav Bauer
  */
 
+@SuppressWarnings("all")
 @Component
 @ObjectConverter
 public class UserConverter {

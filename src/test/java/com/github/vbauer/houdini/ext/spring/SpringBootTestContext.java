@@ -11,5 +11,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan(basePackages = "com.github.vbauer.houdini")
 @ImportAutoConfiguration(ObjectConverterConfiguration.class)
-public class SpringBootTestContext {
+class SpringBootTestContext {
 }
