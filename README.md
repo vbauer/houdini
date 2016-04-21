@@ -22,6 +22,11 @@ Houdini allows you to aggregate different converters in a single place and re-us
 
 See an *[Example](https://github.com/vbauer/houdini#example)* section for a quick start.
 
+**Online documentation:**
+
+* [Maven site](https://vbauer.github.io/houdini)
+* [Javadoc](https://vbauer.github.io/houdini/apidocs)
+
 
 ## Main features
 
