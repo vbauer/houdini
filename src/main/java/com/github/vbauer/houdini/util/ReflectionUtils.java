@@ -3,7 +3,6 @@ package com.github.vbauer.houdini.util;
 import com.google.common.annotations.VisibleForTesting;
 
 import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.lang.reflect.UndeclaredThrowableException;
 
 /**
@@ -31,12 +30,9 @@ public final class ReflectionUtils {
     public static <T> Class<T> getClassWithoutProxies(final T object) {
         try {
             // XXX: Use HibernateProxyHelper to un-proxy object and get the original class.
-            final Class<?> clazz = Class.forName("org.hibernate.proxy.HibernateProxyHelper");
-            final Method method = clazz.getDeclaredMethod(
-                "getClassWithoutInitializingProxy", Object.class
-            );
-
-            return (Class<T>) method.invoke(null, object);
+            return (Class<T>) Class.forName("org.hibernate.proxy.HibernateProxyHelper")
+                .getDeclaredMethod("getClassWithoutInitializingProxy", Object.class)
+                .invoke(null, object);
         } catch (final Exception ex) {
             try {
                 return (Class<T>) object.getClass();
