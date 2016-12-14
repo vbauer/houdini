@@ -9,6 +9,7 @@ import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
@@ -70,8 +71,9 @@ public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {
         final boolean isProxyMethod = method.isBridge() || method.isSynthetic();
         final boolean hasAnnotation = method.getAnnotation(ObjectConverter.class) != null
                 || beanClass.getAnnotation(ObjectConverter.class) != null;
+        final boolean isPublic = Modifier.isPublic(method.getModifiers());
 
-        return !isProxyMethod && isDeclaredMethod && hasAnnotation;
+        return !isProxyMethod && isDeclaredMethod && hasAnnotation && isPublic;
     }
 
     @SuppressWarnings({ "unchecked", "rawtypes" })

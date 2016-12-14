@@ -34,4 +34,8 @@ public class UserConverter {
         throw new UnsupportedOperationException("Converter is not supported");
     }
 
+    private UserDTO privateConverter(final String login) {
+        return shortInfo(new User().setLogin(login));
+    }
+
 }
