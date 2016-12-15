@@ -51,6 +51,11 @@ public abstract class BasicIoCTest {
         assertThat(checkUserDTO(userDTO, true), notNullValue());
     }
 
+    @Test(expected = MissedObjectConverterException.class)
+    public void testPrivateConverter() {
+        converterService.convert(UserDTO.class, LOGIN);
+    }
+
     @Test(expected = UnsupportedOperationException.class)
     public void testBadConverter() {
         final User user = createUser();
