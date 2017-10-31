@@ -1,0 +1,7 @@
+com.github.vbauer.houdini.converter
+com.github.vbauer.houdini.core
+com.github.vbauer.houdini.exception
+com.github.vbauer.houdini.ext.guice
+com.github.vbauer.houdini.ext.spring
+com.github.vbauer.houdini.model
+com.github.vbauer.houdini.util

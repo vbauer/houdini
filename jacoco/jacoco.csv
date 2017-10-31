@@ -1,0 +1,16 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+houdini,com.github.vbauer.houdini.util,CollectionUtils,0,38,0,9,0,9,0,10,0,5
+houdini,com.github.vbauer.houdini.util,ReflectionUtils,26,107,0,16,4,26,0,14,0,6
+houdini,com.github.vbauer.houdini.exception,DuplicatedObjectConverterException,0,21,0,0,0,3,0,2,0,2
+houdini,com.github.vbauer.houdini.exception,MissedObjectConverterException,0,21,0,0,0,3,0,2,0,2
+houdini,com.github.vbauer.houdini.ext.spring,ObjectConverterBeanPostProcessor,0,17,0,0,0,7,0,3,0,3
+houdini,com.github.vbauer.houdini.ext.spring,ObjectConverterConfiguration,0,17,0,0,0,4,0,4,0,4
+houdini,com.github.vbauer.houdini.ext.guice,ObjectConverterModule.1.new InjectionListener() {...},0,12,0,0,0,3,0,2,0,2
+houdini,com.github.vbauer.houdini.ext.guice,ObjectConverterModule,0,43,0,0,0,12,0,4,0,4
+houdini,com.github.vbauer.houdini.ext.guice,ObjectConverterModule.new TypeListener() {...},0,16,0,0,0,3,0,2,0,2
+houdini,com.github.vbauer.houdini.exception.base,MethodObjectConverterException,0,20,0,0,0,6,0,3,0,3
+houdini,com.github.vbauer.houdini.exception.base,ObjectConverterException,0,5,0,0,0,2,0,2,0,2
+houdini,com.github.vbauer.houdini.service.impl,ObjectConverterRegistryImpl,1,146,5,23,0,28,5,14,0,5
+houdini,com.github.vbauer.houdini.service.impl,ObjectConverterServiceImpl,4,116,1,3,2,24,1,11,0,10
+houdini,com.github.vbauer.houdini.model,ObjectConverterInfoKey,0,125,2,16,0,27,2,15,0,8
+houdini,com.github.vbauer.houdini.model,ObjectConverterInfoValue,0,30,0,0,0,7,0,4,0,4

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>CollectionUtils.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">houdini</a> &gt; <a href="index.source.html" class="el_package">com.github.vbauer.houdini.util</a> &gt; <span class="el_source">CollectionUtils.java</span></div><h1>CollectionUtils.java</h1><pre class="source lang-java linenums">package com.github.vbauer.houdini.util;
+
+import com.google.common.annotations.VisibleForTesting;
+
+import java.util.Collection;
+
+/**
+ * Util-class to work with collections.
+ *
+ * @author Vladislav Bauer
+ */
+
+public final class CollectionUtils {
+
+<span class="fc" id="L15">    private CollectionUtils() {</span>
+<span class="fc" id="L16">        throw new UnsupportedOperationException();</span>
+    }
+
+
+    /**
+     * Check if collection is an empty. Method is null-safe.
+     *
+     * @param collection collection with data
+     * @return true if empty, false - otherwise.
+     */
+    public static boolean isEmpty(final Collection&lt;?&gt; collection) {
+<span class="fc bfc" id="L27" title="All 2 branches covered.">        return size(collection) == 0;</span>
+    }
+
+    /**
+     * Get a size of the given array. Method is null-safe.
+     *
+     * @param array array with data
+     * @param &lt;T&gt; type of the array
+     * @return size of the given array
+     */
+    public static &lt;T&gt; int size(final T[] array) {
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        return array == null ? 0 : array.length;</span>
+    }
+
+    /**
+     * Method uses the following logic:
+     *
+     * &lt;ul&gt;
+     *     &lt;li&gt;If collection is empty, it returns null.&lt;/li&gt;
+     *     &lt;li&gt;If collection contains only one element, it returns this element.&lt;/li&gt;
+     *     &lt;li&gt;Otherwise it returns the given collection&lt;/li&gt;
+     * &lt;/ul&gt;
+     *
+     * @param collection collection with data or null.
+     * @return collection or single reference
+     */
+    public static Object oneOrMany(final Collection&lt;?&gt; collection) {
+<span class="fc bfc" id="L54" title="All 3 branches covered.">        switch (size(collection)) {</span>
+            case 0:
+<span class="fc" id="L56">                return null;</span>
+            case 1:
+<span class="fc" id="L58">                return collection.iterator().next();</span>
+            default:
+<span class="fc" id="L60">                return collection;</span>
+        }
+    }
+
+
+    /**
+     * Get a size of the given collection. Method is null-safe.
+     *
+     * @param collection collection with data
+     * @return size of the given collection
+     */
+    @VisibleForTesting
+    static int size(final Collection&lt;?&gt; collection) {
+<span class="fc bfc" id="L73" title="All 2 branches covered.">        return collection == null ? 0 : collection.size();</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

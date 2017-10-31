@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ObjectConverterRegistryImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">houdini</a> &gt; <a href="index.source.html" class="el_package">com.github.vbauer.houdini.service.impl</a> &gt; <span class="el_source">ObjectConverterRegistryImpl.java</span></div><h1>ObjectConverterRegistryImpl.java</h1><pre class="source lang-java linenums">package com.github.vbauer.houdini.service.impl;
+
+import com.github.vbauer.houdini.annotation.ObjectConverter;
+import com.github.vbauer.houdini.exception.DuplicatedObjectConverterException;
+import com.github.vbauer.houdini.exception.MissedObjectConverterException;
+import com.github.vbauer.houdini.model.ObjectConverterInfoKey;
+import com.github.vbauer.houdini.model.ObjectConverterInfoValue;
+import com.github.vbauer.houdini.service.ObjectConverterRegistry;
+import com.github.vbauer.houdini.util.ReflectionUtils;
+
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+
+/**
+ * {@link ObjectConverterRegistry}.
+ *
+ * @author Vladislav Bauer
+ */
+
+<span class="fc" id="L22">public class ObjectConverterRegistryImpl implements ObjectConverterRegistry {</span>
+
+<span class="fc" id="L24">    private final ConcurrentMap&lt;ObjectConverterInfoKey&lt;?&gt;, ObjectConverterInfoValue&lt;?&gt;&gt; converters =</span>
+        new ConcurrentHashMap&lt;&gt;();
+
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void registerConverters(final Object bean) {
+<span class="fc" id="L33">        final Class&lt;?&gt; beanClass = ReflectionUtils.getClassWithoutProxies(bean);</span>
+
+<span class="pc bpc" id="L35" title="1 of 2 branches missed.">        if (beanClass != null) {</span>
+<span class="fc" id="L36">            final Method[] methods = beanClass.getDeclaredMethods();</span>
+<span class="fc bfc" id="L37" title="All 2 branches covered.">            for (final Method method : methods) {</span>
+<span class="fc bfc" id="L38" title="All 2 branches covered.">                if (isConverterMethod(beanClass, method)) {</span>
+<span class="fc" id="L39">                    registerConverter(bean, method);</span>
+                }
+            }
+        }
+<span class="fc" id="L43">    }</span>
+
+    /**
+     * {@inheritDoc}
+     */
+    @SuppressWarnings(&quot;unchecked&quot;)
+    @Override
+    public  &lt;R&gt; ObjectConverterInfoValue&lt;R&gt; findConverter(
+        final Class&lt;R&gt; resultClass, final Object... sources
+    ) {
+<span class="fc" id="L53">        final Class&lt;?&gt;[] sourceClasses = ReflectionUtils.getClassesWithoutProxies(sources);</span>
+<span class="fc" id="L54">        final ObjectConverterInfoKey&lt;R&gt; key = new ObjectConverterInfoKey&lt;&gt;(resultClass, sourceClasses);</span>
+<span class="fc" id="L55">        final ObjectConverterInfoValue&lt;R&gt; value = (ObjectConverterInfoValue&lt;R&gt;) converters.get(key);</span>
+
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        if (value == null) {</span>
+<span class="fc" id="L58">            throw new MissedObjectConverterException(resultClass, sourceClasses);</span>
+        }
+
+<span class="fc" id="L61">        return value;</span>
+    }
+
+
+    /*
+     Internal API.
+     */
+
+    private boolean isConverterMethod(final Class&lt;?&gt; beanClass, final Method method) {
+<span class="pc bpc" id="L70" title="1 of 2 branches missed.">        final boolean isDeclaredMethod = method.getDeclaringClass() == beanClass;</span>
+<span class="pc bpc" id="L71" title="1 of 4 branches missed.">        final boolean isProxyMethod = method.isBridge() || method.isSynthetic();</span>
+<span class="pc bpc" id="L72" title="1 of 4 branches missed.">        final boolean hasAnnotation = method.getAnnotation(ObjectConverter.class) != null</span>
+                || beanClass.getAnnotation(ObjectConverter.class) != null;
+<span class="fc" id="L74">        final boolean isPublic = Modifier.isPublic(method.getModifiers());</span>
+
+<span class="pc bpc" id="L76" title="1 of 8 branches missed.">        return !isProxyMethod &amp;&amp; isDeclaredMethod &amp;&amp; hasAnnotation &amp;&amp; isPublic;</span>
+    }
+
+    @SuppressWarnings({ &quot;unchecked&quot;, &quot;rawtypes&quot; })
+    private void registerConverter(final Object bean, final Method method) {
+<span class="fc" id="L81">        final Class&lt;?&gt; returnType = method.getReturnType();</span>
+<span class="fc" id="L82">        final Class&lt;?&gt;[] parameterTypes = method.getParameterTypes();</span>
+
+<span class="fc" id="L84">        final ObjectConverterInfoKey key = new ObjectConverterInfoKey(returnType, parameterTypes);</span>
+<span class="fc" id="L85">        final ObjectConverterInfoValue&lt;Object&gt; value = new ObjectConverterInfoValue&lt;&gt;(method, bean);</span>
+<span class="fc" id="L86">        final ObjectConverterInfoValue&lt;?&gt; result = converters.putIfAbsent(key, value);</span>
+
+<span class="fc bfc" id="L88" title="All 2 branches covered.">        if (result != null) {</span>
+<span class="fc" id="L89">            throw new DuplicatedObjectConverterException(returnType, parameterTypes);</span>
+        }
+<span class="fc" id="L91">    }</span>
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.7.9.201702052155</span></div></body></html>

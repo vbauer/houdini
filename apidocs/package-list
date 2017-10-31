@@ -1,0 +1,9 @@
+com.github.vbauer.houdini.annotation
+com.github.vbauer.houdini.exception
+com.github.vbauer.houdini.exception.base
+com.github.vbauer.houdini.ext.guice
+com.github.vbauer.houdini.ext.spring
+com.github.vbauer.houdini.model
+com.github.vbauer.houdini.service
+com.github.vbauer.houdini.service.impl
+com.github.vbauer.houdini.util
