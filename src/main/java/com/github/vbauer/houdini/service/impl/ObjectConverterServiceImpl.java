@@ -55,7 +55,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
      */
     @Override
     public <R, S> Set<R> convert(final Class<R> resultClass, final Set<S> sources) {
-        return processObjects(sources, resultClass, new HashSet<R>());
+        return processObjects(sources, resultClass, new HashSet<>());
     }
 
     /**
@@ -63,7 +63,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
      */
     @Override
     public <R, S> List<R> convert(final Class<R> resultClass, final List<S> sources) {
-        return processObjects(sources, resultClass, new ArrayList<R>());
+        return processObjects(sources, resultClass, new ArrayList<>());
     }
 
     /**
@@ -71,7 +71,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
      */
     @Override
     public <R, S> Object convertToOneOrList(final Class<R> resultClass, final List<S> sources) {
-        return oneOrMany(processObjects(sources, resultClass, new ArrayList<R>()));
+        return oneOrMany(processObjects(sources, resultClass, new ArrayList<>()));
     }
 
     /**
@@ -79,7 +79,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
      */
     @Override
     public <R, S> Object convertToOneOrSet(final Class<R> resultClass, final Set<S> sources) {
-        return oneOrMany(processObjects(sources, resultClass, new HashSet<R>()));
+        return oneOrMany(processObjects(sources, resultClass, new HashSet<>()));
     }
 
 

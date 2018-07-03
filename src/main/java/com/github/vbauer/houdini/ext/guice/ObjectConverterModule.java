@@ -51,12 +51,7 @@ public class ObjectConverterModule extends AbstractModule {
         return new TypeListener() {
             @Override
             public <I> void hear(final TypeLiteral<I> typeLiteral, final TypeEncounter<I> typeEncounter) {
-                typeEncounter.register(new InjectionListener<I>() {
-                    @Override
-                    public void afterInjection(final I injectee) {
-                        registry.registerConverters(injectee);
-                    }
-                });
+                typeEncounter.register((InjectionListener<I>) registry::registerConverters);
             }
         };
     }
