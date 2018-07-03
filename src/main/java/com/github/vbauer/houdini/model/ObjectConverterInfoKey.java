@@ -1,7 +1,5 @@
 package com.github.vbauer.houdini.model;
 
-import com.github.vbauer.houdini.util.CollectionUtils;
-
 import java.util.Arrays;
 import java.util.Objects;
 
@@ -49,7 +47,7 @@ public final class ObjectConverterInfoKey<R> {
      */
     @Override
     public int hashCode() {
-        return Arrays.hashCode(new Object[]{CollectionUtils.size(getSources()), getTarget()});
+        return Arrays.hashCode(new Object[]{sources.length, target});
     }
 
     /**
@@ -87,8 +85,8 @@ public final class ObjectConverterInfoKey<R> {
         final Class<?>[] selfSources = getSources();
         final Class<?>[] otherSources = other.getSources();
 
-        final int selfLength = CollectionUtils.size(selfSources);
-        final int otherLength = CollectionUtils.size(otherSources);
+        final int selfLength = selfSources.length;
+        final int otherLength = otherSources.length;
 
         if (selfLength != otherLength) {
             return false;

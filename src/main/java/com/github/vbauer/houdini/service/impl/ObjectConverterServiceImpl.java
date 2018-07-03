@@ -3,11 +3,14 @@ package com.github.vbauer.houdini.service.impl;
 import com.github.vbauer.houdini.model.ObjectConverterInfoValue;
 import com.github.vbauer.houdini.service.ObjectConverterRegistry;
 import com.github.vbauer.houdini.service.ObjectConverterService;
-import com.github.vbauer.houdini.util.CollectionUtils;
 import com.github.vbauer.houdini.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * {@link ObjectConverterService}.
@@ -68,7 +71,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
      */
     @Override
     public <R, S> Object convertToOneOrList(final Class<R> resultClass, final List<S> sources) {
-        return CollectionUtils.oneOrMany(processObjects(sources, resultClass, new ArrayList<R>()));
+        return oneOrMany(processObjects(sources, resultClass, new ArrayList<R>()));
     }
 
     /**
@@ -76,7 +79,7 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
      */
     @Override
     public <R, S> Object convertToOneOrSet(final Class<R> resultClass, final Set<S> sources) {
-        return CollectionUtils.oneOrMany(processObjects(sources, resultClass, new HashSet<R>()));
+        return oneOrMany(processObjects(sources, resultClass, new HashSet<R>()));
     }
 
 
@@ -87,13 +90,11 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
     private <R, C extends Collection<R>> C processObjects(
         final Collection<?> sources, final Class<R> resultClass, final C result
     ) {
-        if (!CollectionUtils.isEmpty(sources)) {
-            for (final Object source : sources) {
-                final ObjectConverterRegistry registry = getConverterRegistry();
-                final ObjectConverterInfoValue<R> converterInfo = registry.findConverter(resultClass, source);
+        for (final Object source : sources) {
+            final ObjectConverterRegistry registry = getConverterRegistry();
+            final ObjectConverterInfoValue<R> converterInfo = registry.findConverter(resultClass, source);
 
-                result.add(processObject(converterInfo, source));
-            }
+            result.add(processObject(converterInfo, source));
         }
         return result;
     }
@@ -110,6 +111,18 @@ public class ObjectConverterServiceImpl implements ObjectConverterService {
         } catch (final Exception ex) {
             ReflectionUtils.handleReflectionException(ex);
             return null;
+        }
+    }
+
+    private Object oneOrMany(final Collection<?> collection) {
+        final int size = collection == null ? 0 : collection.size();
+        switch (size) {
+            case 0:
+                return null;
+            case 1:
+                return collection.iterator().next();
+            default:
+                return collection;
         }
     }
 

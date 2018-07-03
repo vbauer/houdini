@@ -1,7 +1,5 @@
 package com.github.vbauer.houdini.exception.base;
 
-import com.github.vbauer.houdini.util.CollectionUtils;
-
 import java.util.Arrays;
 
 /**
@@ -27,7 +25,7 @@ public abstract class MethodObjectConverterException extends ObjectConverterExce
      * @return input parameter types
      */
     public Class<?>[] getParameterTypes() {
-        return Arrays.copyOf(parameterTypes, CollectionUtils.size(parameterTypes));
+        return Arrays.copyOf(parameterTypes, parameterTypes.length);
     }
 
     /**
