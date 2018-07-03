@@ -6,7 +6,6 @@ import com.github.vbauer.houdini.exception.MissedObjectConverterException;
 import com.github.vbauer.houdini.model.ObjectConverterInfoKey;
 import com.github.vbauer.houdini.model.ObjectConverterInfoValue;
 import com.github.vbauer.houdini.service.ObjectConverterRegistry;
-import com.github.vbauer.houdini.util.ReflectionUtils;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;

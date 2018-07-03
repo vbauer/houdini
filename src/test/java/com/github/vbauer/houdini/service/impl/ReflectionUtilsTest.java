@@ -1,4 +1,4 @@
-package com.github.vbauer.houdini.util;
+package com.github.vbauer.houdini.service.impl;
 
 import com.github.vbauer.houdini.core.BasicTest;
 import org.junit.Test;

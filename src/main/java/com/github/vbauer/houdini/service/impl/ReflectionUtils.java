@@ -1,4 +1,4 @@
-package com.github.vbauer.houdini.util;
+package com.github.vbauer.houdini.service.impl;
 
 import com.google.common.annotations.VisibleForTesting;
 
@@ -11,7 +11,7 @@ import java.lang.reflect.UndeclaredThrowableException;
  * @author Vladislav Bauer 
  */
 
-public final class ReflectionUtils {
+final class ReflectionUtils {
     
     private ReflectionUtils() {
         throw new UnsupportedOperationException();
@@ -27,7 +27,8 @@ public final class ReflectionUtils {
      * @return type of the object without some proxy wrappers
      */
     @SuppressWarnings("unchecked")
-    public static <T> Class<T> getClassWithoutProxies(final T object) {
+    @VisibleForTesting
+    static <T> Class<T> getClassWithoutProxies(final T object) {
         try {
             // XXX: Use HibernateProxyHelper to un-proxy object and get the original class.
             return (Class<T>) Class.forName("org.hibernate.proxy.HibernateProxyHelper")
@@ -48,7 +49,8 @@ public final class ReflectionUtils {
      * @param sources array with objects
      * @return un-proxy classes
      */
-    public static Class<?>[] getClassesWithoutProxies(final Object[] sources) {
+    @VisibleForTesting
+    static Class<?>[] getClassesWithoutProxies(final Object[] sources) {
         final int size = sources == null ? 0 : sources.length;
         final Class<?>[] sourceClasses = new Class<?>[size];
 
@@ -65,7 +67,8 @@ public final class ReflectionUtils {
      *
      * @param ex exception
      */
-    public static void handleReflectionException(final Exception ex) {
+    @VisibleForTesting
+    static void handleReflectionException(final Exception ex) {
         if (ex instanceof NoSuchMethodException) {
             throw new IllegalStateException("Method not found: " + ex.getMessage());
         } else if (ex instanceof IllegalAccessException) {
