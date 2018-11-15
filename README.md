@@ -76,6 +76,18 @@ Using Houdini we could put all needed converters into a single bean and use it l
 
 ## Setup
 
+### Gradle
+```groovy
+repositories {
+    maven {
+        url "https://jitpack.io"
+    }
+}
+dependencies {
+    compile 'com.github.vbauer:houdini:1.4.2'
+}
+```
+
 ### Maven
 ```xml
 <repository>
@@ -88,18 +100,6 @@ Using Houdini we could put all needed converters into a single bean and use it l
     <artifactId>houdini</artifactId>
     <version>1.4.2</version>
 </dependency>
-```
-
-### Gradle
-```groovy
-repositories {
-    maven {
-        url "https://jitpack.io"
-    }
-}
-dependencies {
-    compile 'com.github.vbauer:houdini:1.4.2'
-}
 ```
 
 
